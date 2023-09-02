@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Algorithm", "Algorithm", "{30605290-DE4E-4FE3-8939-D302506E08BE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{CECB9D33-5FA0-4DC9-97D7-1A2F6357EE71}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Learn", "Learn", "{0736F652-351B-4DD3-9C5B-D808EC2BAEE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.algo.prime", "welearn.net.algo.prime\welearn.net.algo.prime.csproj", "{51F6E0FA-803A-44F7-9CD0-32F8B31A6897}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.easy", "welearn.net.easy\welearn.net.easy.csproj", "{6B0432A3-371F-406C-86C6-90D2C1BBC4F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{51F6E0FA-803A-44F7-9CD0-32F8B31A6897} = {30605290-DE4E-4FE3-8939-D302506E08BE}
+		{6B0432A3-371F-406C-86C6-90D2C1BBC4F8} = {CECB9D33-5FA0-4DC9-97D7-1A2F6357EE71}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{51F6E0FA-803A-44F7-9CD0-32F8B31A6897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51F6E0FA-803A-44F7-9CD0-32F8B31A6897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51F6E0FA-803A-44F7-9CD0-32F8B31A6897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51F6E0FA-803A-44F7-9CD0-32F8B31A6897}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B0432A3-371F-406C-86C6-90D2C1BBC4F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B0432A3-371F-406C-86C6-90D2C1BBC4F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B0432A3-371F-406C-86C6-90D2C1BBC4F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B0432A3-371F-406C-86C6-90D2C1BBC4F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
