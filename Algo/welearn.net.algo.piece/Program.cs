@@ -2,4 +2,5 @@
 
 using welearn.net.algo.piece;
 
-HundredPrisoners.Test();
+// HundredPrisoners.Test();
+RandomDistribute.TestRandomDistribute();

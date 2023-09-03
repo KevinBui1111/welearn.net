@@ -1,38 +1,42 @@
 namespace welearn.net.algo.piece;
 
-public class RandomDistribute {
+public static class RandomDistribute {
+    private static readonly Random R = new();
+
     // move from ConsoleCore project, 2022-01-18
-    public static void RandomPercent() {
+    public static void TestRandomDistribute() {
         (int chance, int gain)[] buckets = {
             (5, 0),
             (2, 0),
             (3, 0)
         };
-        int total = buckets.Sum(b => b.chance);
+        var chanceRatio = buckets.Select(b => b.chance).ToArray();
+        var total = chanceRatio.Sum();
 
-        do {
-            Random r = new Random();
-            for (int i = 0; i < 1_00; ++i) {
-                //int v = i % total + 1;
-                int v = r.Next(total);
-                int curChance = 0;
-                for (int j = 0; j < buckets.Length; ++j) {
-                    curChance += buckets[j].chance;
-                    if (v < curChance) {
-                        ++buckets[j].gain;
-                        break;
-                    }
-                }
-                //if (v <= bucketA.chance) ++bucketA.gain;
-                //else ++bucketB.gain;
+        for (var i = 0; i < 1_00; ++i) {
+            var v = R.Next(total);
+            var j = Distribute(chanceRatio, v);
+            ++buckets[j].gain;
+        }
+
+        var sumGain = buckets.Sum(b => b.gain);
+        var gainResult = String.Join('-',
+            buckets.Select(b =>
+                Math.Round(b.gain * 100.0 / sumGain)
+            )
+        );
+        Console.WriteLine($"Gain result: {gainResult}");
+    }
+
+    public static int Distribute(IReadOnlyList<int> chanceRatio, int value) {
+        var curChance = 0;
+        for (var i = 0; i < chanceRatio.Count; ++i) {
+            curChance += chanceRatio[i];
+            if (value < curChance) {
+                return i;
             }
+        }
 
-            int sumGain = buckets.Sum(b => b.gain);
-            for (int j = 0; j < buckets.Length; ++j) {
-                Console.Write($"bucket {j}: {Math.Round(buckets[j].gain * 100.0 / sumGain)}, ");
-            }
-
-            Console.ReadLine();
-        } while (true);
+        return -1; // invalid value
     }
 }
