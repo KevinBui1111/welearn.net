@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\welearn.net.easy\welearn.net.easy.csproj" />
+      <ProjectReference Include="..\..\Lib\welearn.net.easy\welearn.net.easy.csproj" />
     </ItemGroup>
 
 </Project>

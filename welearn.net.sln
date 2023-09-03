@@ -6,9 +6,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{CECB9D33-5FA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Learn", "Learn", "{0736F652-351B-4DD3-9C5B-D808EC2BAEE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.algo.prime", "welearn.net.algo.prime\welearn.net.algo.prime.csproj", "{51F6E0FA-803A-44F7-9CD0-32F8B31A6897}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.algo.prime", "Algo\welearn.net.algo.prime\welearn.net.algo.prime.csproj", "{51F6E0FA-803A-44F7-9CD0-32F8B31A6897}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.easy", "welearn.net.easy\welearn.net.easy.csproj", "{6B0432A3-371F-406C-86C6-90D2C1BBC4F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.easy", "Lib\welearn.net.easy\welearn.net.easy.csproj", "{6B0432A3-371F-406C-86C6-90D2C1BBC4F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
