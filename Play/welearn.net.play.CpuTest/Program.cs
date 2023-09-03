@@ -8,7 +8,6 @@ using welearn.net.play.CpuTest;
   Move from ConsoleApp project
   Build since 2022-02-24
 */
-
 var timer = new Stopwatch();
 long prime;
 long bound;
