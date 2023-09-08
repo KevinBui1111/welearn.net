@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.play.CpuTest", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.learn.OOP", "Learn\welearn.net.learn.OOP\welearn.net.learn.OOP.csproj", "{413FD2B5-8478-4294-9866-68338524986A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.learn.csharp", "Learn\welearn.net.learn.csharp\welearn.net.learn.csharp.csproj", "{A1D4F923-A972-4F8F-91CB-083D7C8A832A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,7 @@ Global
 		{E6434FE3-C293-43E6-9C85-676FB6D0503D} = {30605290-DE4E-4FE3-8939-D302506E08BE}
 		{C6E89D6D-29D6-4250-9FD4-28977DAE2B92} = {C4D4ED22-14EC-49ED-94B0-FA9E2647EA85}
 		{413FD2B5-8478-4294-9866-68338524986A} = {0736F652-351B-4DD3-9C5B-D808EC2BAEE1}
+		{A1D4F923-A972-4F8F-91CB-083D7C8A832A} = {0736F652-351B-4DD3-9C5B-D808EC2BAEE1}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{51F6E0FA-803A-44F7-9CD0-32F8B31A6897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -58,5 +61,9 @@ Global
 		{413FD2B5-8478-4294-9866-68338524986A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{413FD2B5-8478-4294-9866-68338524986A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{413FD2B5-8478-4294-9866-68338524986A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1D4F923-A972-4F8F-91CB-083D7C8A832A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1D4F923-A972-4F8F-91CB-083D7C8A832A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1D4F923-A972-4F8F-91CB-083D7C8A832A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1D4F923-A972-4F8F-91CB-083D7C8A832A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
