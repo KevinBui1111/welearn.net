@@ -3,4 +3,6 @@
 using welearn.net.algo.piece;
 
 // HundredPrisoners.Test();
-RandomDistribute.TestRandomDistribute();
+// RandomDistribute.TestRandomDistribute();
+new LangfordPairing().Arrange(7);
+Console.WriteLine("done");

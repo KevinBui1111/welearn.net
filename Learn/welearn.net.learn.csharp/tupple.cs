@@ -1,15 +1,12 @@
 ﻿using System;
 
-namespace ConsoleCore
-{
+namespace ConsoleCore {
     // move from ConsoleCore project, 2020-03-13 - 26
-    class tupple
-    {
+    class tupple {
         public int X { get; set; }
         public string Y { get; set; }
 
-        public static void Main()
-        {
+        public static void Main() {
             // quick declaration, tuple style.
             var (iii, sss) = (123, "abc");
             // write as tuple, and write normal
@@ -34,12 +31,14 @@ namespace ConsoleCore
             Console.WriteLine(tup22);
 
             (_, sss) = new tupple { X = 10, Y = "abc" };
+            int[] a = { 1, 2, 3 };
+            (a[0], a[2]) = (4, 5);
+            Console.WriteLine($"array {a[0]} - {a[2]}");
 
             Console.ReadKey();
         }
 
-        static (int, string) tripleValue((int iVal, string sVal) tuple)
-        {
+        static (int, string) tripleValue((int iVal, string sVal) tuple) {
             tuple.iVal++;
             tuple.sVal += tuple.sVal;
 
