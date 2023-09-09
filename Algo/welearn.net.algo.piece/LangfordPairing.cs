@@ -4,6 +4,7 @@ public class LangfordPairing {
     private int[] lots;
     private int _numInput;
     private int _maxFirst;
+    private bool _firstMiddle;
     private readonly Stack<(int pairNth, int startPosition)> _stack = new();
 
     public LangfordPairing() {
@@ -13,21 +14,25 @@ public class LangfordPairing {
     public void Reset(int numInput) {
         _numInput = numInput;
         _maxFirst = (_numInput - 1) / 2 + (_numInput - 1) % 2;
+        _firstMiddle = false;
         lots = new int[numInput * 2];
         _stack.Clear();
     }
 
-    public List<int[]> Arrange(int numInput) {
+    public int Arrange(int numInput) {
         // int lots
         Reset(numInput);
 
         PlaceNPush(_numInput, 0);
         var curStateSuccess = true;
+        var nSolution = 0;
         do {
             var cur = _stack.Peek();
             // try next pair, previous less than
 
-            if (cur.pairNth == 1) { // success
+            if (cur.pairNth == 1) {
+                // success
+                ++nSolution;
                 PrintSolution();
                 UnPlaceNPop();
                 curStateSuccess = false;
@@ -50,7 +55,7 @@ public class LangfordPairing {
             }
         } while (_stack.Count != 0);
 
-        return Enumerable.Empty<int[]>().ToList();
+        return nSolution;
     }
 
     private void UnPlaceNPop() {
@@ -59,13 +64,18 @@ public class LangfordPairing {
     }
 
     private void PlaceNPush(int pairNth, int position) {
+        if (_numInput % 2 == 0 && pairNth == _numInput && position == _maxFirst - 1)
+            _firstMiddle = true;
+
         (lots[position], lots[position + pairNth + 1]) = (pairNth, pairNth);
         _stack.Push((pairNth, position));
     }
 
     private (bool success, int position) FindNextPlace(int pairNth, int startFrom = 0) {
-        var max = pairNth == _numInput ? _maxFirst : _numInput * 2;
-        
+        var max = pairNth == _numInput ? _maxFirst :
+            _firstMiddle && pairNth == _numInput - 1 ? _maxFirst :
+            _numInput * 2;
+
         for (var startPosition = startFrom; startPosition < max; ++startPosition) {
             var isOk = IsAvailableAt(pairNth, startPosition);
             if (!isOk) continue;
@@ -94,6 +104,6 @@ public class LangfordPairing {
     }
 
     private void PrintSolution() {
-        Console.WriteLine(string.Join(' ', lots));
+        // Console.WriteLine(string.Join(' ', lots));
     }
 }

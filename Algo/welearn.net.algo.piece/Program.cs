@@ -4,5 +4,7 @@ using welearn.net.algo.piece;
 
 // HundredPrisoners.Test();
 // RandomDistribute.TestRandomDistribute();
-new LangfordPairing().Arrange(7);
-Console.WriteLine("done");
+foreach (var i in Enumerable.Range(2, 16)) {
+    var nSolution = new LangfordPairing().Arrange(i);
+    Console.WriteLine($"Solution for {i}: {nSolution}");
+}
