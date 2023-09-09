@@ -3,7 +3,8 @@ namespace welearn.net.algo.piece;
 public class LangfordPairing {
     private int[] lots;
     private int _numInput;
-    private readonly Stack<(int pairNth, int startPosition)> _stack = new ();
+    private int _maxFirst;
+    private readonly Stack<(int pairNth, int startPosition)> _stack = new();
 
     public LangfordPairing() {
         Reset(3);
@@ -11,6 +12,7 @@ public class LangfordPairing {
 
     public void Reset(int numInput) {
         _numInput = numInput;
+        _maxFirst = (_numInput - 1) / 2 + (_numInput - 1) % 2;
         lots = new int[numInput * 2];
         _stack.Clear();
     }
@@ -20,11 +22,11 @@ public class LangfordPairing {
         Reset(numInput);
 
         PlaceNPush(_numInput, 0);
-        var curStateSuccess = true; 
+        var curStateSuccess = true;
         do {
             var cur = _stack.Peek();
             // try next pair, previous less than
-            
+
             if (cur.pairNth == 1) { // success
                 PrintSolution();
                 UnPlaceNPop();
@@ -41,8 +43,8 @@ public class LangfordPairing {
                 UnPlaceNPop();
                 testObj = (cur.pairNth, cur.startPosition + 1);
             }
-            
-            (curStateSuccess, var position)  = FindNextPlace(testObj.pairNth, testObj.fromPosition);
+
+            (curStateSuccess, var position) = FindNextPlace(testObj.pairNth, testObj.fromPosition);
             if (curStateSuccess) {
                 PlaceNPush(testObj.pairNth, position);
             }
@@ -62,10 +64,12 @@ public class LangfordPairing {
     }
 
     private (bool success, int position) FindNextPlace(int pairNth, int startFrom = 0) {
-        for (var startPosition = startFrom; startPosition < _numInput * 2; ++startPosition) {
+        var max = pairNth == _numInput ? _maxFirst : _numInput * 2;
+        
+        for (var startPosition = startFrom; startPosition < max; ++startPosition) {
             var isOk = IsAvailableAt(pairNth, startPosition);
             if (!isOk) continue;
-                    
+
             return (true, startPosition);
         }
 
@@ -85,6 +89,7 @@ public class LangfordPairing {
         if (isOk) {
             (lots[startPosition], lots[startPosition + pairNth + 1]) = (pairNth, pairNth);
         }
+
         return isOk;
     }
 
