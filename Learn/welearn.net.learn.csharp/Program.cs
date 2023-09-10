@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using ConsoleCore;
+using welearn.net.learn.csharp;
 
-tupple.Main();
+tupple.Test();
