@@ -1,14 +1,14 @@
-﻿namespace welearn.net.learn.csharp; 
+﻿namespace welearn.net.learn.csharp;
 
 // move from ConsoleCore project, 2020-03-13 - 26
-internal class TupleCSharp7 {
-    private class User {
-        public string Name { set; get; }
-        public int Age { get; set; }
-        
-        public void Deconstruct(out int firstName, out string lastName) => (firstName, lastName) = (Age, Name);
-    }
+internal class User {
+    public string Name { get; set; }
+    public int Age { get; set; }
 
+    public void Deconstruct(out string lastName, out int age) => (lastName, age) = (Name, Age);
+}
+
+internal abstract class TupleCSharp7 {
     private static (string, int) TripleValue((string name, int age) user) {
         user.age *= 3;
         user.name += user.name + user.name;
@@ -25,18 +25,18 @@ internal class TupleCSharp7 {
 
         var user = ("Kevin", 34);
         Console.WriteLine($"{user} | {user.Item1} - {user.Item2}"); // (Kevin, 34) | Kevin - 34
-        
+
         var user2 = (name: "Kevin", age: 34);
         // same as: (string name, int age) user4 = ("Kevin", 34);
         Console.WriteLine($"{user2.name} - {user2.age}"); // Kevin - 34
-        
+
         var user3 = (name, age);
         Console.WriteLine($"{user3.name} - {user3.age}"); // Kevin - 34
-        
+
         Console.WriteLine("\n---Tuple is structure, and is value type---");
         user3.age++;
         Console.WriteLine(user2 == user3); // false
-        
+
         ++user2.age;
         Console.WriteLine(user2 == user3); // true
 
@@ -50,9 +50,10 @@ internal class TupleCSharp7 {
         Console.WriteLine($"{userTriple}, {user}"); // (KevinKevinKevin, 102), (Kevin, 34)
 
         Console.WriteLine("\n---Destructor---");
-        (_, name) = new User { Age = 20, Name = "Eni" };
+        var u = new User { Age = 20, Name = "Eni" };
+        (name, _) = u;
         Console.WriteLine($"name: {name}"); // Eni
-        
+
         Console.WriteLine("\n---exchange in array---");
 
         int[] a = { 1, 2, 3 };
