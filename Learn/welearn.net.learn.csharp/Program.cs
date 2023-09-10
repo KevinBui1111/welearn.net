@@ -2,4 +2,4 @@
 
 using welearn.net.learn.csharp;
 
-tupple.Test();
+TupleCSharp7.Test();

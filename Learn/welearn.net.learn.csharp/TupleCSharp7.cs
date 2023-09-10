@@ -1,7 +1,7 @@
 ﻿namespace welearn.net.learn.csharp; 
 
 // move from ConsoleCore project, 2020-03-13 - 26
-internal class tupple {
+internal class TupleCSharp7 {
     private class User {
         public string Name { set; get; }
         public int Age { get; set; }
