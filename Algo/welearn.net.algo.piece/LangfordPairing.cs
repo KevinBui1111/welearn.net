@@ -74,7 +74,7 @@ public class LangfordPairing {
     private (bool success, int position) FindNextPlace(int pairNth, int startFrom = 0) {
         var max = pairNth == _numInput ? _maxFirst :
             _firstMiddle && pairNth == _numInput - 1 ? _maxFirst :
-            _numInput * 2;
+            _numInput * 2 - pairNth - 1;
 
         for (var startPosition = startFrom; startPosition < max; ++startPosition) {
             var isOk = IsAvailableAt(pairNth, startPosition);
