@@ -2,4 +2,5 @@
 
 using welearn.net.learn.csharp;
 
-TupleCSharp7.Test();
+// TupleCSharp7.Test();
+EnumLinq.SelectMany();
