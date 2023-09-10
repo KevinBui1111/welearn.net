@@ -1,6 +1,6 @@
 namespace welearn.net.algo.piece;
 
-public class LangfordPairing_v2 {
+public class LangfordPairing_v2{
     private int[] lots;
     private int _numInput;
     private int _maxFirst;
@@ -25,6 +25,10 @@ public class LangfordPairing_v2 {
     }
 
     public int Arrange(int numInput) {
+        // Multiples of four, and one less than,
+        // ie: Langford pairings exist only when n is congruent to 0 or 3 modulo 4
+        if (numInput % 4 is not 3 and not 0) return 0;
+        
         Reset(numInput);
         Arrange(numInput, 0);
         return _nSolution;
@@ -41,9 +45,10 @@ public class LangfordPairing_v2 {
             ++_nSolution;
         }
         else {
-            var subSuccess = Arrange(pairNth - 1, 0);
+            success = Arrange(pairNth - 1, 0);
+            if (StopAtFirst && success) return success;
             UnPlace(pairNth, position);
-            Arrange(pairNth, position + 1);
+            success = Arrange(pairNth, position + 1);
         }
 
         return success;
@@ -84,6 +89,6 @@ public class LangfordPairing_v2 {
     }
 
     private void PrintSolution() {
-        // Console.WriteLine(string.Join(' ', lots));
+        Console.WriteLine(string.Join(' ', lots));
     }
 }
