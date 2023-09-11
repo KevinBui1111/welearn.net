@@ -2,4 +2,4 @@
 
 using welearn.net.learn.OOP;
 
-MyClass.Test();
+ParentChildTester.Test();

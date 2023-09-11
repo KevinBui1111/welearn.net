@@ -2,29 +2,30 @@ namespace welearn.net.learn.OOP;
 
 public class Parent {
     private readonly string _className;
+    protected string ProtectedField = "parent";
     
-    public Parent() {
-        _className = "Parent";
+    public Parent(string className) {
+        _className = $"Parent {className}";
         Console.WriteLine($"{_className} is created");
     }
 
-    public void Method_A() {
-        Console.WriteLine($"{_className} Method_A");
+    public void MethodPublic_1() {
+        Console.WriteLine($"{_className} {nameof(MethodPublic_1)}");
     }
     
-    public void Method_A1() {
-        Console.WriteLine($"{_className} Method_A1");
+    public void MethodPublic_2() {
+        Console.WriteLine($"{_className} {nameof(MethodPublic_2)}");
     }
 
-    protected void Method_B() {
-        Console.WriteLine($"{_className} Method_B");
+    protected void MethodProtected_1() {
+        Console.WriteLine($"{_className} {nameof(MethodProtected_1)}");
     }
 
-    protected virtual void Method_C() {
+    protected virtual void MethodVirtualProtected() {
         Console.WriteLine($"{_className} Method_C");
     }
 
-    public virtual void Method_D() {
-        Console.WriteLine($"{_className} Method_D");
+    protected void MethodProtected() {
+        Console.WriteLine($"{_className} {nameof(MethodProtected)}");
     }
 }
