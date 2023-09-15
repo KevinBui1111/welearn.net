@@ -25,40 +25,39 @@ public class ClimbingLeaderBoardTest {
         var actual = ClimbingLeaderBoard.Ranking(ranked.ToList(), player.ToList());
         Assert.Equal(expected, actual);
     }
-}
 
-internal class FileDataAttribute : DataAttribute {
-    private readonly string _inputFile;
-    private readonly string _expectedFile;
+    private class FileDataAttribute : DataAttribute {
+        private readonly string _inputFile;
+        private readonly string _expectedFile;
 
-    public FileDataAttribute(string inputFile, string expectedFile) {
-        const string path = "HackerRank/TestCase/ClimbingLeaderBoard";
-        _inputFile = Path.Combine(path, inputFile);
-        _expectedFile = Path.Combine(path, expectedFile);
-    }
+        public FileDataAttribute(string inputFile, string expectedFile) {
+            const string path = "HackerRank/TestCase/ClimbingLeaderBoard";
+            _inputFile = Path.Combine(path, inputFile);
+            _expectedFile = Path.Combine(path, expectedFile);
+        }
 
-    public override IEnumerable<object[]> GetData(MethodInfo testMethod) {
-        using var sr = new StreamReader(_inputFile);
+        public override IEnumerable<object[]> GetData(MethodInfo testMethod) {
+            using var sr = new StreamReader(_inputFile);
 
-        var rankedCount = Convert.ToInt32(sr.ReadLine());
-        var ranked = sr.ReadLine()!
-            .TrimEnd().Split(' ')
-            .Select(rankedTemp => Convert.ToInt32(rankedTemp))
-            .ToArray();
+            var rankedCount = Convert.ToInt32(sr.ReadLine());
+            var ranked = sr.ReadLine()!.TrimEnd().Split(' ')
+                .Select(rankedTemp => Convert.ToInt32(rankedTemp))
+                .ToArray();
 
-        Assert.Equal(rankedCount, ranked.Length);
+            Assert.Equal(rankedCount, ranked.Length);
 
-        var playerCount = Convert.ToInt32(sr.ReadLine());
-        var player = sr.ReadLine()!.TrimEnd().Split(' ').ToList()
-            .Select(playerTemp => Convert.ToInt32(playerTemp))
-            .ToArray();
+            var playerCount = Convert.ToInt32(sr.ReadLine());
+            var player = sr.ReadLine()!.TrimEnd().Split(' ')
+                .Select(playerTemp => Convert.ToInt32(playerTemp))
+                .ToArray();
 
-        Assert.Equal(playerCount, player.Length);
+            Assert.Equal(playerCount, player.Length);
 
-        var expected = File.ReadLines(_expectedFile)
-            .Select(s => Convert.ToInt32(s))
-            .ToArray();
+            var expected = File.ReadLines(_expectedFile)
+                .Select(s => Convert.ToInt32(s))
+                .ToArray();
 
-        yield return new object[] { ranked, player, expected };
+            yield return new object[] { ranked, player, expected };
+        }
     }
 }
