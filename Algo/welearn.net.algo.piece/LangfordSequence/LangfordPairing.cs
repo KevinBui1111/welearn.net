@@ -1,7 +1,7 @@
 namespace welearn.net.algo.piece;
 
 public class LangfordPairing {
-    private int[] lots;
+    private int[] _lots;
     private int _numInput;
     private int _maxFirst;
     private bool _firstMiddle;
@@ -15,7 +15,7 @@ public class LangfordPairing {
         _numInput = numInput;
         _maxFirst = (_numInput - 1) / 2 + (_numInput - 1) % 2;
         _firstMiddle = false;
-        lots = new int[numInput * 2];
+        _lots = new int[numInput * 2];
         _stack.Clear();
     }
 
@@ -60,14 +60,14 @@ public class LangfordPairing {
 
     private void UnPlaceNPop() {
         var cur = _stack.Pop();
-        (lots[cur.startPosition], lots[cur.startPosition + cur.pairNth + 1]) = (0, 0);
+        (_lots[cur.startPosition], _lots[cur.startPosition + cur.pairNth + 1]) = (0, 0);
     }
 
     private void PlaceNPush(int pairNth, int position) {
         if (_numInput % 2 == 0 && pairNth == _numInput && position == _maxFirst - 1)
             _firstMiddle = true;
 
-        (lots[position], lots[position + pairNth + 1]) = (pairNth, pairNth);
+        (_lots[position], _lots[position + pairNth + 1]) = (pairNth, pairNth);
         _stack.Push((pairNth, position));
     }
 
@@ -88,16 +88,16 @@ public class LangfordPairing {
 
     private bool IsAvailableAt(int pairNth, int startPosition) {
         var endPosition = startPosition + pairNth + 1;
-        return endPosition < lots.Length &&
-               lots[startPosition] == 0 &&
-               lots[endPosition] == 0
+        return endPosition < _lots.Length &&
+               _lots[startPosition] == 0 &&
+               _lots[endPosition] == 0
             ;
     }
 
     private bool TryPlace(int pairNth, int startPosition) {
         var isOk = IsAvailableAt(pairNth, startPosition);
         if (isOk) {
-            (lots[startPosition], lots[startPosition + pairNth + 1]) = (pairNth, pairNth);
+            (_lots[startPosition], _lots[startPosition + pairNth + 1]) = (pairNth, pairNth);
         }
 
         return isOk;

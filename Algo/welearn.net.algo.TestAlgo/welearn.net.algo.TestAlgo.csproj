@@ -22,7 +22,15 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\welearn.net.algo.piece\welearn.net.algo.piece.csproj" />
       <ProjectReference Include="..\welearn.net.algo.prime\welearn.net.algo.prime.csproj" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <None Update="HackerRank\TestCase\**">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
