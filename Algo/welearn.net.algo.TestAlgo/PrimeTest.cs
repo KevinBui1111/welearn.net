@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using welearn.net.algo.prime;
 
 namespace welearn.net.algo.TestAlgo;
@@ -17,8 +18,32 @@ public class PrimeTest {
             2, 3, 5, 29, 31, 523, 541, 8933, 25439, 15_485_863,
             371_240_333, 372015493, 378_120_053 /*, 22_801_763_489*/
         };
-        var actual = primeNth.Select(Prime.NthPrime);
+        var actual = primeNth.AsParallel().Select(Prime.NthPrime);
         Assert.Equal(expected, actual.ToArray());
+    }
+    
+    public static IEnumerable<object[]> NthPrimeTestData {
+        get {
+            int[] primeNth = {
+                1, 2, 3, 10, 11, 99, 100, 1111, 2804, 1_000_000,
+                19881_111, 19_920_428, 2023_02_08 /*, 1_000_000_000*/
+            };
+            long[] expected = {
+                2, 3, 5, 29, 31, 523, 541, 8933, 25439, 15_485_863,
+                371_240_333, 372_015_493, 378_120_053 /*, 22_801_763_489*/
+            };
+
+            return primeNth.Select(
+                (nTh, index) => new object[] { nTh, expected[index] }
+            );
+        }
+    }
+
+    [Theory] // not support to run in parallel! 
+    [MemberData(nameof(NthPrimeTestData))]
+    public void NthPrime2(int nTh, int expected) {
+        var actual = Prime.NthPrime(nTh);
+        Assert.Equal(expected, actual);
     }
 
     private readonly int[] _expectedBound1000 = {
