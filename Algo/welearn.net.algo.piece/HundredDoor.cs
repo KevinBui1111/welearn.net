@@ -1,3 +1,5 @@
+using welearn.net.easy;
+
 namespace welearn.net.algo.piece;
 
 public static class HundredDoor {
@@ -19,6 +21,7 @@ public static class HundredDoor {
             Console.WriteLine();
         }
 
-        Console.WriteLine($"open: {doors.Count(d => d)}");
+        var doorsOpened = doors.IndexOfWhere(d => d);
+        doorsOpened.PrintConsole();
     }
 }
