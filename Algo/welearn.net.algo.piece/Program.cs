@@ -5,4 +5,5 @@ using welearn.net.algo.piece.LangfordSequence;
 
 // HundredPrisoners.Test();
 // RandomDistribute.TestRandomDistribute();
-new LangfordTest().Test();
+// new LangfordTest().Test();
+HundredDoor.Travel(100);
