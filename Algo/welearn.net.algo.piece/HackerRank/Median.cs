@@ -28,7 +28,7 @@ public class Median {
 
     public static int[] MergeSortedArrays(int[] nums1, int[] nums2) {
         var arr = new int[nums1.Length + nums2.Length];
-        
+
         int idx1 = 0, idx2 = 0, idx = 0;
         while (idx1 < nums1.Length && idx2 < nums2.Length) {
             arr[idx++] = nums1[idx1] < nums2[idx2]
@@ -55,5 +55,26 @@ public class Median {
     public double FindMedianSortedArrays2(int[] nums1, int[] nums2) {
         var num = MergeSortedArrays(nums1, nums2);
         return FindMedianSortedArray(num);
+    }
+
+    public double FindMedianSortedArrays(int[] nums1, int[] nums2) {
+        int size = nums1.Length + nums2.Length,
+            middle = size / 2;
+        var odd = size % 2 == 1;
+        int a = 0, b = 0;
+
+        int idx1 = 0, idx2 = 0;
+        for (var idx = 0; idx <= middle; ++idx) {
+            a = b;
+            b = idx2 == nums2.Length
+                ? nums1[idx1++]
+                : idx1 == nums1.Length
+                    ? nums2[idx2++]
+                    : nums1[idx1] < nums2[idx2]
+                        ? nums1[idx1++]
+                        : nums2[idx2++];
+        }
+
+        return odd ? b : (a + b) / 2.0;
     }
 }
