@@ -26,6 +26,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.learn.O0PKevin"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.play.Benchmark", "Play\welearn.net.play.Benchmark\welearn.net.play.Benchmark.csproj", "{1D71F0B8-2A7A-42B7-BD4C-90120EC30D9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.learn.WebApi", "Learn\welearn.net.learn.WebApi\welearn.net.learn.WebApi.csproj", "{7B6C2FFE-B845-400E-BFD9-53C62ABC5504}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.DependencyInjection", "Learn\welearn.net.DependencyInjection\welearn.net.DependencyInjection.csproj", "{680DD994-DEE4-4C5F-8DE1-129ACBE9A203}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,8 @@ Global
 		{A1D4F923-A972-4F8F-91CB-083D7C8A832A} = {0736F652-351B-4DD3-9C5B-D808EC2BAEE1}
 		{67DC609E-852B-4B80-AC36-74978605931E} = {0736F652-351B-4DD3-9C5B-D808EC2BAEE1}
 		{1D71F0B8-2A7A-42B7-BD4C-90120EC30D9B} = {C4D4ED22-14EC-49ED-94B0-FA9E2647EA85}
+		{7B6C2FFE-B845-400E-BFD9-53C62ABC5504} = {0736F652-351B-4DD3-9C5B-D808EC2BAEE1}
+		{680DD994-DEE4-4C5F-8DE1-129ACBE9A203} = {0736F652-351B-4DD3-9C5B-D808EC2BAEE1}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{51F6E0FA-803A-44F7-9CD0-32F8B31A6897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -79,5 +85,13 @@ Global
 		{1D71F0B8-2A7A-42B7-BD4C-90120EC30D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D71F0B8-2A7A-42B7-BD4C-90120EC30D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D71F0B8-2A7A-42B7-BD4C-90120EC30D9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B6C2FFE-B845-400E-BFD9-53C62ABC5504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B6C2FFE-B845-400E-BFD9-53C62ABC5504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B6C2FFE-B845-400E-BFD9-53C62ABC5504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B6C2FFE-B845-400E-BFD9-53C62ABC5504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{680DD994-DEE4-4C5F-8DE1-129ACBE9A203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{680DD994-DEE4-4C5F-8DE1-129ACBE9A203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{680DD994-DEE4-4C5F-8DE1-129ACBE9A203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{680DD994-DEE4-4C5F-8DE1-129ACBE9A203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
