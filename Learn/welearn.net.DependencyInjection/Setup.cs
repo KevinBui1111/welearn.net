@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using welearn.net.DependencyInjection.Service;
 
 namespace welearn.net.DependencyInjection; 
 
@@ -22,7 +23,7 @@ internal class Setup
 
         var bar2 = serviceProvider.GetService<IBoxRepo>();
         Console.WriteLine(bar == bar2);
-        var abs = (absBaseRepo)bar;
+        var abs = (AbsBaseRepo)bar;
         abs.save();
 
         var logger = serviceProvider.GetService<ILogger<IBoxRepo>>();
@@ -35,75 +36,4 @@ internal class Setup
             logger.LogError(ex, "");
         }
     }
-}
-
-
-public interface IFooService
-{
-    void DoThing(string number);
-}
-public interface IBarService
-{
-    void DoSomeRealWork();
-}
-
-
-public class BarService : IBarService
-{
-    private readonly IFooService _fooService;
-    public BarService(IFooService fooService) => _fooService = fooService;
-
-    public void DoSomeRealWork() => _fooService.DoThing("DoSomeRealWork");
-}
-public class FooService : IFooService
-{
-    private readonly ILogger<FooService> _logger;
-
-    public FooService(ILoggerFactory loggerFactory)
-    {
-        _logger = loggerFactory.CreateLogger<FooService>();
-    }
-
-    public void DoThing(string number)
-    {
-        //Console.WriteLine("DoThing");
-        _logger.LogInformation(4, $"Doing the thing {number}");
-        //Console.WriteLine("DoThing 2");
-    }
-}
-
-
-interface IBaseRepo
-{
-    void save();
-}
-
-interface IBoxRepo : IBaseRepo
-{
-    void find_box();
-}
-interface IRecRepo : IBaseRepo
-{
-    void find_rec();
-}
-
-abstract class absBaseRepo : IBaseRepo
-{
-    private readonly IFooService _fooService;
-    public absBaseRepo(IFooService fooService) => _fooService = fooService;
-
-    public virtual void save() => _fooService.DoThing("123");
-}
-
-class BoxRepo : absBaseRepo, IBoxRepo
-{
-    private readonly ILogger<BoxRepo> _logger;
-    public BoxRepo(IFooService _foo, ILogger<BoxRepo> logger) : base(_foo)
-    {
-        _logger = logger;
-    }
-
-    //public void save() => Console.WriteLine("absBaseRepo SAVE");
-    //public override void save() => Console.WriteLine("BoxRepo SAVE");
-    public void find_box() => _logger.LogWarning(9, "find_box {} {-1}", "BoxRepo", "aaa");
 }
