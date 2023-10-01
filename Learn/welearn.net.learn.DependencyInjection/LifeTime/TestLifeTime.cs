@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace welearn.net.learn.DependencyInjection.LifeTime;
 
@@ -10,6 +11,7 @@ public class TestLifeTime {
             .AddScoped<IExampleScope, ExampleScope>()
             .AddTransient(typeof(IExampleTransient), typeof(ExampleTransient))
             .AddSingleton<IExampleSingleton, ExampleSingleton>()
+            .AddLogging(l => l.AddConsole())
             .BuildServiceProvider();
 
         ReportInScope(serviceProvider, "scope 1");
