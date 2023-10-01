@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace welearn.net.DependencyInjection.Service;
+namespace welearn.net.learn.DependencyInjection.Service;
 
 internal class FooService : IFooService
 {

@@ -1,4 +1,4 @@
-namespace welearn.net.DependencyInjection.Service;
+namespace welearn.net.learn.DependencyInjection.Service;
 
 public class BarService : IBarService
 {

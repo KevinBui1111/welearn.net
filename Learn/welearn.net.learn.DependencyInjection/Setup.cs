@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using welearn.net.DependencyInjection.Service;
+using welearn.net.learn.DependencyInjection.Service;
 
-namespace welearn.net.DependencyInjection; 
+namespace welearn.net.learn.DependencyInjection; 
 
 internal class Setup
 {

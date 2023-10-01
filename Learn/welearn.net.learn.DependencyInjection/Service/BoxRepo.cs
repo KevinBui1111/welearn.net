@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace welearn.net.DependencyInjection;
+namespace welearn.net.learn.DependencyInjection;
 
 internal class BoxRepo : AbsBaseRepo, IBoxRepo
 {
