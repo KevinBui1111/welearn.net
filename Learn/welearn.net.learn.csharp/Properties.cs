@@ -15,6 +15,9 @@ public class Person {
     public int Age { get; set; }
     public int Gender { get; }
     public string InitProp { get; set; } = "initValue";
+    
+    private static int _id = 0;
+    public int Id { get; } = ++_id;
 }
 
 public class Properties {
@@ -26,5 +29,10 @@ public class Properties {
         p.Age = 10;
         Console.WriteLine(p.Age); //10
         Console.WriteLine(p.Gender); //1
+        Console.WriteLine($"Id: {p.Id}"); //1
+        
+        
+        var p2 = new Person("Khanh", "Vo");
+        Console.WriteLine($"Id: {p2.Id}"); //2
     }
 }
