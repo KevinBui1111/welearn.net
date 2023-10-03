@@ -27,3 +27,13 @@ public class ExampleSingleton : IExampleSingleton {
     public Guid Id { get; } = Guid.NewGuid();
     public ServiceLifetime Lifetime => ServiceLifetime.Singleton;
 }
+
+public class OtherSingleton : IExampleSingleton {
+    public Guid Id { get; } = Guid.NewGuid();
+    public ServiceLifetime Lifetime => ServiceLifetime.Singleton;
+}
+
+public class ActionSingleton : IExampleSingleton {
+    public Guid Id { get; } = Guid.NewGuid();
+    public ServiceLifetime Lifetime => ServiceLifetime.Singleton;
+}
