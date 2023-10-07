@@ -1,14 +1,6 @@
 namespace welearn.net.learn.DependencyInjection.HttpClientInject;
 
-public interface IPhase {
-    string Handle();
-}
+public interface IPhase : IGuidId { }
 
-public abstract class Phase : IPhase {
-    public string Handle() {
-        return $"Handle {GetType()}";
-    }
-}
-
-public class PhaseA : Phase { }
-public class PhaseB : Phase { }
+public class PhaseA : TypeAndId, IPhase { }
+public class PhaseB : TypeAndId, IPhase { }

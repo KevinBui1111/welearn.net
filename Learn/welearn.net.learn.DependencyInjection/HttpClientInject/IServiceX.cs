@@ -1,19 +1,21 @@
-namespace welearn.net.learn.DependencyInjection.HttpClientInject; 
+namespace welearn.net.learn.DependencyInjection.HttpClientInject;
 
-public interface IServiceX : IGuidId {
-    
-}
+public interface IServiceX : IGuidId { }
 
-public abstract class ServiceX : IServiceX {
-    public Guid Id { get; } = Guid.NewGuid();
-}
+public abstract class ServiceX : TypeAndId, IServiceX {
+    public IRepo Repo { get; }
 
-public class ServiceA : ServiceX {
-    private readonly IRepo _repo;
-
-    public ServiceA(IRepo repo) {
-        _repo = repo;
+    public ServiceX(IRepo repo) {
+        Repo = repo;
     }
 }
 
-public class ServiceB : ServiceX { }
+public class ServiceA : ServiceX {
+    public ServiceA(IRepo repo) : base(repo) { }
+}
+public class ServiceB : ServiceX {
+    public ServiceB(IRepo repo) : base(repo) { }
+}
+public class ServiceC : ServiceX {
+    public ServiceC(IRepo repo) : base(repo) { }
+}

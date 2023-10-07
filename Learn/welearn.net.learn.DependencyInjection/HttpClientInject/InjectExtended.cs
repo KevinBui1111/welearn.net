@@ -6,11 +6,10 @@ namespace welearn.net.learn.DependencyInjection.HttpClientInject;
 public static class InjectExtended {
     public static IServiceCollection AddSpecificSingleton<
         TService,
-        TDependency, TDependencyImplement>(
+        TDependencyImplement>(
         this IServiceCollection services)
         where TService : class
-        where TDependency : class
-        where TDependencyImplement : TDependency
+        where TDependencyImplement : class
     {
         return services.AddSingleton<TService>(sp => {
             var service = sp.GetRequiredService<TDependencyImplement>();

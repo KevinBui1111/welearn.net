@@ -1,14 +1,7 @@
-namespace welearn.net.learn.DependencyInjection.HttpClientInject; 
+namespace welearn.net.learn.DependencyInjection.HttpClientInject;
 
-public interface IRepo {
-    string Save();
+public interface IRepo : IGuidId {
 }
 
-public abstract class Repo : IRepo {
-    public string Save() {
-        return $"Save {GetType()}";
-    }
-}
-
-public class RepoA : Repo { }
-public class RepoB : Repo { }
+public class RepoA : TypeAndId, IRepo { }
+public class RepoB : TypeAndId, IRepo { }
