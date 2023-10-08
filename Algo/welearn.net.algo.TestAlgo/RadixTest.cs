@@ -16,7 +16,7 @@ public class RadixTest {
 
     public static IEnumerable<object[]> To16TestData =>
         TestArray.Select(n =>
-            new object[] { n, 16, Convert.ToString(n, 16) }
+            new object[] { n, 16, Convert.ToString(n, 16).ToUpper() }
         );
 
     [Theory]
@@ -24,6 +24,18 @@ public class RadixTest {
     [MemberData(nameof(To16TestData))]
     public void ToRadix(int number, int radix, string expected) {
         var actual = Radix.ToRadix(number, radix);
+        Assert.Equal(expected, actual);
+    }
+
+    public static IEnumerable<object[]> Bytes16TestData =>
+        TestArray.Select(n =>
+            new object[] { BitConverter.GetBytes(n), 16, Convert.ToString(n, 16).ToUpper() }
+        );
+    
+    [Theory]
+    [MemberData(nameof(Bytes16TestData))]
+    public void ToRadixByte(byte[] bytes, int radix, string expected) {
+        var actual = Radix.ToRadix(bytes, radix);
         Assert.Equal(expected, actual);
     }
 }
