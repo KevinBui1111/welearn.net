@@ -42,11 +42,20 @@ public class RadixTest {
 
     public static IEnumerable<object[]> TestByteArray => new List<object[]> {
         new object[] { new byte[] { 0x1, 0x2, 0x3, 0x4, 0x10, 0x11, 0x16, 0x32 }, new[] { 0x04030201, 0x32161110 } },
-        new object[] { new byte[] { 0x63, 0x64, 0x99, 0x10, 0xE7, 0x4A, 0xFF, 0xC2 }, new [] { 0x10996463, -1023456537 } },
+        new object[]
+            { new byte[] { 0x63, 0x64, 0x99, 0x10, 0xE7, 0x4A, 0xFF, 0xC2 }, new[] { 0x10996463, -1023456537 } },
         new object[] { new byte[] { 0x1, 0x2, 0x3, 0x4, 0x10, 0x11 }, new[] { 0x04030201, 0x1110 } },
         new object[] { new byte[] { 0x00, 0x2, 0x3, 0x0, 0x10, 0x00 }, new[] { 0x030200, 0x10 } },
         new object[] { new byte[] { 0xAA, 0x0, 0x00, 0x0, 0x00, 0x00 }, new[] { 0xAA } },
-        new object[] { new byte[] { 0x00, 0x0, 0x00, 0x0, 0x00, 0x00 }, Array.Empty<int>() }
+        new object[] { new byte[] { 0x00, 0x0, 0x00, 0x0, 0x00, 0x00 }, Array.Empty<int>() },
+        new object[] {
+            Convert.FromHexString("B3D5482DCA7FD3956343D8BFE3CEB45D"),
+            new[] { 0x2D48D5B3, -1781301302, -1076346013, 0x5DB4CEE3 }
+        },
+        new object[] {
+            Convert.FromHexString("B3D5482DCA7FD3956343D8BFE3CEB4"),
+            new[] { 0x2D48D5B3, -1781301302, -1076346013, 0xB4CEE3 }
+        }
     };
 
     [Theory]
