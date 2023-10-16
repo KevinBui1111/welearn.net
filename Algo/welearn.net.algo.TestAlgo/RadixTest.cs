@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Runtime.InteropServices;
 using welearn.net.algo.piece;
 
@@ -64,6 +65,42 @@ public class RadixTest {
         var actual = Radix.ToIntArray(bytes);
         // var integerArray = MemoryMarshal.Cast<byte, int>(bytes.AsSpan());
         // var expected = integerArray.ToArray();
+        Assert.Equal(expected, actual);
+    }
+
+    private static Random _rnd = new();
+
+    private static IEnumerable<byte[]> _toDecimalTest = new List<byte[]> {
+        new byte[] { 0x1, 0x2, 0x3, 0x4, 0x10, 0x11, 0x16, 0x32 },
+        new byte[] { 0x63, 0x64, 0x99, 0x10, 0xE7, 0x4A, 0xFF, 0xC2 },
+        new byte[] { 0x1, 0x2, 0x3, 0x4, 0x10, 0x11 },
+        new byte[] { 0x00, 0x2, 0x3, 0x0, 0x10, 0x00 },
+        new byte[] { 0xAA, 0x0, 0x00, 0x0, 0x00, 0x00 },
+        new byte[] { 0x00, 0x0, 0x00, 0x0, 0x00, 0x00 },
+        Convert.FromHexString("B3D5482DCA7FD3956343D8BFE3CEB45D"),
+        Convert.FromHexString("B3D5482DCA7FD3956343D8BFE3CEB4"),
+        RandomBytes(100),
+        RandomBytes(50),
+        RandomBytes(19),
+        RandomBytes(219)
+    };
+
+    private static byte[] RandomBytes(int count) {
+        var bytes = new byte[count];
+        _rnd.NextBytes(bytes);
+        return bytes;
+    }
+
+    public static IEnumerable<object[]> ToDecimalTestData => _toDecimalTest.Select(
+        bytes => new object[] {
+            bytes, new BigInteger(bytes, isUnsigned: true).ToString()
+        }
+    );
+
+    [Theory]
+    [MemberData(nameof(ToDecimalTestData))]
+    public void ToDecimal(byte[] bytes, string expected) {
+        var actual = Radix.ToDecimal(bytes);
         Assert.Equal(expected, actual);
     }
 }

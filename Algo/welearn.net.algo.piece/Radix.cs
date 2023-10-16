@@ -68,6 +68,40 @@ public class Radix {
         return intArray;
     }
 
+    public static string ToDecimal(byte[] bytes) {
+        var ints = ToIntArray(bytes);
+        const uint limitUnit = 1_000_000_000;
+        var intBuffer = new List<uint>();
+
+        for (var i = ints.Length - 1; i >= 0; --i) {
+            PushNewInt(intBuffer, ints[i]);
+        }
+
+        if (intBuffer.Count == 0) return "0";
+
+        var sb = new StringBuilder(intBuffer[^1].ToString());
+        for (var i = intBuffer.Count - 2; i >= 0; --i) {
+            sb.Append($"{intBuffer[i]:D9}");
+        }
+
+        return sb.ToString();
+
+        void PushNewInt(IList<uint> buffer, int newInt) {
+            var added = (ulong)(uint)newInt;
+            for (var i = 0; i < buffer.Count; ++i) {
+                var upValue = (ulong)buffer[i] << 32 | added;
+                buffer[i] = (uint)(upValue % limitUnit);
+                added = upValue / limitUnit;
+            }
+
+            if (added == 0) return;
+
+            buffer.Add((uint)(added % limitUnit));
+            added /= limitUnit;
+            if (added > 0) buffer.Add((uint)added);
+        }
+    }
+
     public static void Main() {
         var hex = Convert.FromHexString("5DB4CEE3BFD8436395D37FCA2D48D5B3");
         Array.Reverse(hex);
