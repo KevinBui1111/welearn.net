@@ -45,12 +45,36 @@ public class Radix {
         return result.Length == 0 ? "0" : result.ToString();
     }
 
+    public static int[] ToIntArray(byte[] bytes) {
+        // trim zero byte
+        var length = bytes.Length;
+        while (length > 0 && bytes[length - 1] == 0) {
+            --length;
+        }
+
+        var integer = 0;
+        var intArray = new int[length / 4 + ((length & 3) == 0 ? 0 : 1)];
+
+        for (var i = 0; i < length; ++i) {
+            integer = bytes[i] << (8 * i) | integer;
+            if ((i & 3) != 3) continue;
+            // group 4
+            intArray[i / 4] = integer;
+            integer = 0;
+        }
+
+        if (integer > 0) intArray[length / 4] = integer;
+
+        return intArray;
+    }
+
     public static void Main() {
         var hex = Convert.FromHexString("5DB4CEE3BFD8436395D37FCA2D48D5B3");
         Array.Reverse(hex);
         Console.WriteLine(ToRadix(hex, 36));
         Console.WriteLine(ToRadix(hex, 62));
-        var bytes = Encoding.UTF8.GetBytes("%-=i*[");
+        // var bytes = Encoding.UTF8.GetBytes("%-=i*[");
+        var bytes = hex;
         Console.WriteLine(Convert.ToHexString(bytes));
         // bytes = new byte[] { 1, 2, 64 };
         Console.WriteLine(BitConverter.ToString(bytes));
@@ -63,10 +87,9 @@ public class Radix {
         Console.WriteLine(result);
 
         var b = new BigInteger(bytes);
-        Console.WriteLine(b.ToString());
+        Console.WriteLine(b);
 
         bytes = BitConverter.GetBytes((long)b);
         Console.WriteLine(BitConverter.ToString(bytes));
-        
     }
 }
