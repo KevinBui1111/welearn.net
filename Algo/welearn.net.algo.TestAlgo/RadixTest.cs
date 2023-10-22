@@ -68,9 +68,7 @@ public class RadixTest {
         Assert.Equal(expected, actual);
     }
 
-    private static Random _rnd = new();
-
-    private static IEnumerable<byte[]> _toDecimalTest = new List<byte[]> {
+    private static readonly IEnumerable<byte[]> ToDecimalTest = new List<byte[]> {
         new byte[] { 0x1, 0x2, 0x3, 0x4, 0x10, 0x11, 0x16, 0x32 },
         new byte[] { 0x63, 0x64, 0x99, 0x10, 0xE7, 0x4A, 0xFF, 0xC2 },
         new byte[] { 0x1, 0x2, 0x3, 0x4, 0x10, 0x11 },
@@ -82,16 +80,21 @@ public class RadixTest {
         RandomBytes(100),
         RandomBytes(50),
         RandomBytes(19),
-        RandomBytes(219)
+        RandomBytes(219),
+        new byte[]
+        { 
+            0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 
+            0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x00
+        }
     };
 
     private static byte[] RandomBytes(int count) {
         var bytes = new byte[count];
-        _rnd.NextBytes(bytes);
+        Random.Shared.NextBytes(bytes);
         return bytes;
     }
 
-    public static IEnumerable<object[]> ToDecimalTestData => _toDecimalTest.Select(
+    public static IEnumerable<object[]> ToDecimalTestData => ToDecimalTest.Select(
         bytes => new object[] {
             bytes, new BigInteger(bytes, isUnsigned: true).ToString()
         }

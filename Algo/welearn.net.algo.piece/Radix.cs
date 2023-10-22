@@ -69,12 +69,12 @@ public class Radix {
     }
 
     public static string ToDecimal(byte[] bytes) {
-        var ints = ToIntArray(bytes);
+        var ints = ToIntArray(bytes).Reverse();
         const uint limitUnit = 1_000_000_000;
-        var intBuffer = new List<uint>();
+        var intBuffer = new List<ulong>();
 
-        for (var i = ints.Length - 1; i >= 0; --i) {
-            PushNewInt(intBuffer, ints[i]);
+        foreach (var t in ints) {
+            PushNewInt(intBuffer, t);
         }
 
         if (intBuffer.Count == 0) return "0";
@@ -86,19 +86,19 @@ public class Radix {
 
         return sb.ToString();
 
-        void PushNewInt(IList<uint> buffer, int newInt) {
+        void PushNewInt(IList<ulong> buffer, int newInt) {
             var added = (ulong)(uint)newInt;
             for (var i = 0; i < buffer.Count; ++i) {
-                var upValue = (ulong)buffer[i] << 32 | added;
-                buffer[i] = (uint)(upValue % limitUnit);
+                var upValue = buffer[i] << 32 | added;
+                buffer[i] = upValue % limitUnit;
                 added = upValue / limitUnit;
             }
 
             if (added == 0) return;
 
-            buffer.Add((uint)(added % limitUnit));
+            buffer.Add(added % limitUnit);
             added /= limitUnit;
-            if (added > 0) buffer.Add((uint)added);
+            if (added > 0) buffer.Add(added);
         }
     }
 
