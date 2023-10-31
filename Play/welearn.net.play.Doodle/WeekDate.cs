@@ -15,7 +15,9 @@ public class WeekDate {
                 d = new DateTime(d.Year, d.Month, d2);
             }
 
-            Console.WriteLine($"{d:yyyy-MM} {file}");
+            Directory.CreateDirectory($@"{d:yyyy\\MM}");
+            using (File.Create($@"{d:yyyy\\MM}\\{file}.md")) {}
+            // Console.WriteLine($"{d:yyyy-MM} {file}");
             d = d.AddDays(1);
         }
     }
