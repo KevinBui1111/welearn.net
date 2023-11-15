@@ -2,4 +2,5 @@
 
 using welearn.net.play.Doodle;
 
-WeekDate.ListAllWeek(2023);
+WeekDate.ListAllWeek(2021);
+WeekDate.ListAllWeek(2022);

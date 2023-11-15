@@ -21,3 +21,28 @@ public class Human : Homo {
         throw new NotImplementedException();
     }
 }
+
+public interface IRobot {
+    void Speak();
+}
+
+public class Assistant : IAnimal, IRobot {
+    void IAnimal.Speak() {
+        throw new NotImplementedException();
+    }
+
+    public void Run() {
+        throw new NotImplementedException();
+    }
+
+    void IRobot.Speak() {
+        throw new NotImplementedException();
+    }
+}
+
+public class AbstractInterface {
+    public static void Main() {
+        var a = new Assistant();
+        // a.Speak(); Compiler error: cannot access 
+    }
+}
