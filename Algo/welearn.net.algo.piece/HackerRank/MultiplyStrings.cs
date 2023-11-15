@@ -8,8 +8,8 @@ public static class MultiplyStrings {
         const int limitPart = 10_000;
         const int sizePart = 4;
         // split part 4 digit, by limitPart.
-        var partNum1 = PartString(num1, sizePart);
-        var partNum2 = PartString(num2, sizePart);
+        var partNum1 = PartString2(num1, sizePart);
+        var partNum2 = PartString2(num2, sizePart);
 
         var resultPart = new int[partNum1.Count + partNum2.Count];
         for (var i = 0; i < resultPart.Length; ++i)
@@ -64,10 +64,15 @@ public static class MultiplyStrings {
         return res;
     }
 
+    private static List<int> PartString2(string num, int size) {
+        num = new string('0', (4 - num.Length % size) % size) + num;
+        return Enumerable.Range(0, num.Length / size)
+            .Select(i => num.Substring(i * size, size))
+            .Select(int.Parse)
+            .Reverse()
+            .ToList();
+    }
+
     public static void Test() {
-        PartString("0212345678", 4).PrintConsole();
-        var s  = "0212345678";
-        s = $"{s: #,00#}";
-        Console.WriteLine(s);
     }
 }
