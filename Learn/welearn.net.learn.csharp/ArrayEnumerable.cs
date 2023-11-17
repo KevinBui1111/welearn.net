@@ -38,5 +38,8 @@ public class ArrayEnumerable {
         Guid[] unused7 = Array.Empty<Guid>();
         Guid[] unused8 = Array.Empty<Guid>();
         Debug.Assert(object.ReferenceEquals(unused7, unused8));
+        
+        //instantiate a C# array with a single value
+        Enumerable.Repeat(9, 1000).ToArray();
     }
 }
