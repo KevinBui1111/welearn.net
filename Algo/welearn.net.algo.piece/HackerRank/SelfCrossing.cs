@@ -39,21 +39,25 @@ public class SelfCrossing {
                     break;
             }
 
-            // if up / down, check with all vertical line segments 
-            if (direction is up or down) {
-                if (hSegments.SkipLast(1).Any(hSeg => TwoSegmentCross(hSeg, seg))) {
-                    return true;
-                }
+            switch (direction) {
+                // if up / down, check with all vertical line segments 
+                case up or down: {
+                    for (var j = 0; j < hSegments.Count - 1; j++) {
+                        if (TwoSegmentCross(hSegments[j], seg)) return true;
+                    }
 
-                vSegments.Add(seg);
-            }
-            // if left / right, check with all vertical line segments 
-            else if (direction is left or right) {
-                if (vSegments.SkipLast(1).Any(vSeg => TwoSegmentCross(seg, vSeg))) {
-                    return true;
+                    vSegments.Add(seg);
+                    break;
                 }
+                // if left / right, check with all vertical line segments 
+                case left or right: {
+                    for (var j = 0; j < vSegments.Count - 1; j++) {
+                        if (TwoSegmentCross(seg, vSegments[j])) return true;
+                    }
 
-                hSegments.Add(seg);
+                    hSegments.Add(seg);
+                    break;
+                }
             }
         }
 
