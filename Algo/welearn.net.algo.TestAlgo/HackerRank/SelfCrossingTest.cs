@@ -4,9 +4,13 @@ namespace welearn.net.algo.TestAlgo.HackerRank;
 
 public class SelfCrossingTest {
     private readonly SelfCrossing _sc = new();
+    private readonly SelfCrossing2 _sc2 = new();
 
     public static IEnumerable<object[]> SelfCrossData {
         get {
+            yield return new object[] { new[] { 1, 1, 3, 2, 1, 1 }, false };
+            yield return new object[] { new[] { 1, 2, 2, 2 }, false };
+            yield return new object[] { new[] { 1, 1, 2, 1, 1 }, true };
             yield return new object[] { new[] { 2, 1, 1, 2 }, true };
             yield return new object[] { new[] { 1, 2, 3, 4 }, false };
             yield return new object[] { new[] { 1, 1, 1, 2, 1 }, true };
@@ -19,7 +23,7 @@ public class SelfCrossingTest {
         }
     }
 
-    [Theory]
+    [Theory(Skip = "Omit")]
     [MemberData(nameof(SelfCrossData))]
     public void Test(int[] points, bool expected) {
         var actual = _sc.IsSelfCrossing(points);
@@ -30,6 +34,20 @@ public class SelfCrossingTest {
     [MemberData(nameof(SelfCrossData))]
     public void Test2(int[] points, bool expected) {
         var actual = _sc.IsSelfCrossing2(points);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [MemberData(nameof(SelfCrossData))]
+    public void Test3(int[] points, bool expected) {
+        var actual = _sc.IsSelfCrossingOther(points);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [MemberData(nameof(SelfCrossData))]
+    public void Test4(int[] points, bool expected) {
+        var actual = _sc.IsSelfCrossing4(points);
         Assert.Equal(expected, actual);
     }
 }

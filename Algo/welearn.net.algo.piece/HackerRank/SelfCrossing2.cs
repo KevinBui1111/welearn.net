@@ -1,71 +1,8 @@
 namespace welearn.net.algo.piece.HackerRank;
 
-public class SelfCrossing {
-    // naive
-    public bool IsSelfCrossing(int[] distance) {
-        const int up = 0;
-        const int left = 1;
-        const int down = 2;
-        const int right = 3;
-
-        int curX = 0, curY = 0;
-        /*
-         * horizontal segment: xf - xt, y
-         * vertical segment:   x, yf - yt
-         */
-        List<int[]> hSegments = new(), vSegments = new();
-
-        for (var i = 0; i < distance.Length; i++) {
-            var d = distance[i];
-            var direction = i % 4;
-
-            // if up / down, check with all horizon line segments
-            // create vSegment: curX, curY, curY + d
-            var seg = Array.Empty<int>();
-            switch (direction) {
-                case up:
-                    seg = new[] { curX, curY, curY += d };
-                    break;
-                case down:
-                    seg = new[] { curX, curY - d, curY };
-                    curY -= d;
-                    break;
-                case left:
-                    seg = new[] { curX - d, curX, curY };
-                    curX -= d;
-                    break;
-                case right:
-                    seg = new[] { curX, curX += d, curY };
-                    break;
-            }
-
-            switch (direction) {
-                // if up / down, check with all vertical line segments 
-                case up or down: {
-                    for (var j = 0; j < hSegments.Count - 1; j++) {
-                        if (TwoSegmentCross(hSegments[j], seg)) return true;
-                    }
-
-                    vSegments.Add(seg);
-                    break;
-                }
-                // if left / right, check with all vertical line segments 
-                case left or right: {
-                    for (var j = 0; j < vSegments.Count - 1; j++) {
-                        if (TwoSegmentCross(seg, vSegments[j])) return true;
-                    }
-
-                    hSegments.Add(seg);
-                    break;
-                }
-            }
-        }
-
-        return false;
-    }
-
+public class SelfCrossing2 {
     public bool IsSelfCrossing2(int[] distance) {
-        var curPoint = new Point();
+        var curPoint = new Point(0, 0);
         /*
          * horizontal segment: xf - xt, y
          * vertical segment:   x, yf - yt
@@ -93,7 +30,7 @@ public class SelfCrossing {
             var newSeg = orientedSrv.CreateSegment(curPoint, d);
 
             if (i < 3) {
-                curPoint = orientedSrv.UpdateLocation(curPoint, d);
+                orientedSrv.UpdateLocation(curPoint, d);
                 orientedSrv.AddSegment(newSeg);
                 continue;
             }
@@ -102,9 +39,9 @@ public class SelfCrossing {
             if (!shrunken) {
                 // test with 2nd last segment.
                 shrunken = orientedSrv.IsShrunken(curPoint);
-
+                
                 if (!shrunken) {
-                    curPoint = orientedSrv.UpdateLocation(curPoint, d);
+                    orientedSrv.UpdateLocation(curPoint, d);
                     orientedSrv.AddSegment(newSeg);
                     continue;
                 }
@@ -117,7 +54,7 @@ public class SelfCrossing {
                 checkSegment = orientedSrv.GetSegment(1);
             }
 
-            curPoint = orientedSrv.UpdateLocation(curPoint, d);
+            orientedSrv.UpdateLocation(curPoint, d);
             if (orientedSrv.IsSegmentsCross(newSeg, checkSegment)) return true;
             orientedSrv.AddSegment(newSeg);
         }
@@ -125,19 +62,19 @@ public class SelfCrossing {
         return false;
     }
 
-    private static bool TwoSegmentCross(IReadOnlyList<int> hSeg, IReadOnlyList<int> vSeg) =>
-        hSeg[0] <= vSeg[0] && vSeg[0] <= hSeg[1] &&
-        vSeg[1] <= hSeg[2] && hSeg[2] <= vSeg[2];
-
-    private struct Point {
-        public int X;
-        public int Y;
+    private class Point {
+        public Point(int x, int y) {
+            X = x;
+            Y = y;
+        }
+        public int X { get; set; }
+        public int Y { get; set; }
     }
 
     private interface IOrientedService {
         bool IsShrunken(Point p);
         int[] CreateSegment(Point p, int d);
-        Point UpdateLocation(Point p, int d);
+        void UpdateLocation(Point p, int d);
         bool IsSegmentsCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment);
         int[] GetSegment(int index);
         public void AddSegment(int[] segment);
@@ -154,7 +91,7 @@ public class SelfCrossing {
 
         public abstract bool IsShrunken(Point p);
         public abstract int[] CreateSegment(Point p, int d);
-        public abstract Point UpdateLocation(Point p, int d);
+        public abstract void UpdateLocation(Point p, int d);
         public abstract bool IsSegmentsCross(IReadOnlyList<int> hSeg, IReadOnlyList<int> vSeg);
         public abstract int[] GetSegment(int index);
         public abstract void AddSegment(int[] segment);
@@ -173,10 +110,7 @@ public class SelfCrossing {
 
         public override int[] CreateSegment(Point p, int d) => new[] { p.X, p.Y, p.Y + d };
 
-        public override Point UpdateLocation(Point p, int d) {
-            p.Y += d;
-            return p;
-        }
+        public override void UpdateLocation(Point p, int d) => p.Y += d;
 
         public override bool IsSegmentsCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment) =>
             checkSegment[0] <= seg[0] && seg[0] <= checkSegment[1] &&
@@ -196,10 +130,7 @@ public class SelfCrossing {
 
         public override int[] CreateSegment(Point p, int d) => new[] { p.X, p.Y - d, p.Y };
 
-        public override Point UpdateLocation(Point p, int d) {
-            p.Y -= d;
-            return p;
-        }
+        public override void UpdateLocation(Point p, int d) => p.Y -= d;
 
         public override bool IsSegmentsCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment) =>
             checkSegment[0] <= seg[0] && seg[0] <= checkSegment[1] &&
@@ -219,10 +150,7 @@ public class SelfCrossing {
 
         public override int[] CreateSegment(Point p, int d) => new[] { p.X - d, p.X, p.Y };
 
-        public override Point UpdateLocation(Point p, int d) {
-            p.X -= d;
-            return p;
-        }
+        public override void UpdateLocation(Point p, int d) => p.X -= d;
 
         public override bool IsSegmentsCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment) =>
             seg[0] <= checkSegment[0] && checkSegment[0] <= seg[1] &&
@@ -242,10 +170,7 @@ public class SelfCrossing {
 
         public override int[] CreateSegment(Point p, int d) => new[] { p.X, p.X + d, p.Y };
 
-        public override Point UpdateLocation(Point p, int d) {
-            p.X += d;
-            return p;
-        }
+        public override void UpdateLocation(Point p, int d) => p.X += d;
 
         public override bool IsSegmentsCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment) =>
             seg[0] <= checkSegment[0] && checkSegment[0] <= seg[1] &&
@@ -256,102 +181,5 @@ public class SelfCrossing {
         public override void AddSegment(int[] segment) {
             BaseAddSegment(HSegments, segment);
         }
-    }
-
-    public bool IsSelfCrossingOther(int[] distance) {
-        bool inside = false;
-        bool danger = false;
-
-        if (distance.Length < 4) {
-            return false;
-        }
-
-        int x = 0;
-        int y = 0;
-        y += distance[0];
-        x -= distance[1];
-
-        for (int i = 2; i < distance.Length; i++) {
-            if (i % 4 == 0) {
-                y += distance[i];
-            }
-            else {
-                if (i % 4 == 1) {
-                    x -= distance[i];
-                }
-                else {
-                    if (i % 4 == 2) {
-                        y -= distance[i];
-                    }
-                    else {
-                        x += distance[i];
-                    }
-                }
-            }
-
-            if (x == 0 && y == 0) {
-                return true;
-            }
-
-            if (inside && distance[i] >= distance[i - 2]) {
-                return true;
-            }
-
-            if (danger) {
-                if (distance[i] >= distance[i - 2] - distance[i - 4]) {
-                    return true;
-                }
-
-                danger = false;
-            }
-
-            if (!inside && distance[i] <= distance[i - 2]) {
-                inside = true;
-
-                if (i >= 4) {
-                    if (distance[i] >= distance[i - 2] - distance[i - 4]) {
-                        danger = true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    // improve, after refer solution in LeetCode,
-    public bool IsSelfCrossing4(int[] distance) {
-        if (distance.Length <= 3) return false;
-
-        var i = 2;
-        while (distance[i - 2] < distance[i])
-            if (++i == distance.Length)
-                return false;
-
-        if (i == distance.Length - 1) return false;
-
-        // shrink
-        int checkDis;
-        if (i == 2
-            || (i == 3 && distance[i] < distance[i - 2])
-            || (i > 3 && distance[i - 2] - distance[i - 4] > distance[i])
-           )
-            checkDis = distance[i - 1];
-        else
-            checkDis = distance[i - 1] - distance[i - 3];
-
-        ++i;
-        while (distance[i] < checkDis) {
-            checkDis = distance[i - 1];
-            if (++i == distance.Length) return false;
-        }
-
-        return true;
-    }
-
-    public static void Test() {
-        int x = 5;
-        int[] a = { x += 2, x };
-        Console.WriteLine($"x = {x}, a = {a}");
     }
 }
