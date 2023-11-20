@@ -14,6 +14,8 @@ public class SelfCrossingTest {
             yield return new object[] { new[] { 1, 1, 2, 2, 3, 3, 3, 4 }, true };
 
             yield return new object[] { Enumerable.Range(1, 100_000).ToArray(), false };
+
+            yield return new object[] { new[] { 1, 1, 2, 3, 7, 8, 4, 7, 3, 6, 2, 5, 2 }, true };
         }
     }
 
@@ -21,6 +23,13 @@ public class SelfCrossingTest {
     [MemberData(nameof(SelfCrossData))]
     public void Test(int[] points, bool expected) {
         var actual = _sc.IsSelfCrossing(points);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [MemberData(nameof(SelfCrossData))]
+    public void Test2(int[] points, bool expected) {
+        var actual = _sc.IsSelfCrossing2(points);
         Assert.Equal(expected, actual);
     }
 }

@@ -77,13 +77,14 @@ public class SelfCrossing {
          */
         // save last 3 segments
         var hSegments = new int[3][];
+        hSegments[0] = new[] { 0, 0, 0 };
         var vSegments = new int[3][];
 
         IOrientedService[] orientedServices = {
-            new UpService(vSegments),
-            new LeftService(hSegments),
-            new DownService(vSegments),
-            new RightService(hSegments)
+            new UpService(vSegments, hSegments),
+            new LeftService(vSegments, hSegments),
+            new DownService(vSegments, hSegments),
+            new RightService(vSegments, hSegments)
         };
 
         var shrunken = false;
@@ -97,7 +98,7 @@ public class SelfCrossing {
             var newSeg = orientedSrv.CreateSegment(curPoint, d);
 
             if (i < 3) {
-                orientedSrv.UpdateLocation(curPoint, d);
+                curPoint = orientedSrv.UpdateLocation(curPoint, d);
                 orientedSrv.AddSegment(newSeg);
                 continue;
             }
@@ -106,10 +107,9 @@ public class SelfCrossing {
             if (!shrunken) {
                 // test with 2nd last segment.
                 shrunken = orientedSrv.IsShrunken(curPoint);
-
-                orientedSrv.UpdateLocation(curPoint, d);
-
+                
                 if (!shrunken) {
+                    curPoint = orientedSrv.UpdateLocation(curPoint, d);
                     orientedSrv.AddSegment(newSeg);
                     continue;
                 }
@@ -122,18 +122,12 @@ public class SelfCrossing {
                 checkSegment = orientedSrv.GetSegment(1);
             }
 
-            orientedSrv.UpdateLocation(curPoint, d);
-            orientedSrv.TwoSegmentCross(newSeg, checkSegment);
+            curPoint = orientedSrv.UpdateLocation(curPoint, d);
+            if (orientedSrv.IsSegmentsCross(newSeg, checkSegment)) return true;
             orientedSrv.AddSegment(newSeg);
         }
 
         return false;
-
-        void PushToStack(IList<int[]> segmentList, int[] seg) {
-            segmentList[2] = segmentList[1];
-            segmentList[1] = segmentList[0];
-            segmentList[0] = seg;
-        }
     }
 
     private static bool TwoSegmentCross(IReadOnlyList<int> hSeg, IReadOnlyList<int> vSeg) =>
@@ -149,35 +143,38 @@ public class SelfCrossing {
         bool IsShrunken(Point p);
         int[] CreateSegment(Point p, int d);
         Point UpdateLocation(Point p, int d);
-        bool TwoSegmentCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment);
+        bool IsSegmentsCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment);
         int[] GetSegment(int index);
         public void AddSegment(int[] segment);
     }
 
     private abstract class BaseOrientedService : IOrientedService {
-        protected readonly int[][] Segments;
+        protected readonly int[][] VSegments;
+        protected readonly int[][] HSegments;
 
-        protected BaseOrientedService(int[][] segments) {
-            Segments = segments;
+        protected BaseOrientedService(int[][] vSegments, int[][] hSegments) {
+            VSegments = vSegments;
+            HSegments = hSegments;
         }
 
         public abstract bool IsShrunken(Point p);
         public abstract int[] CreateSegment(Point p, int d);
         public abstract Point UpdateLocation(Point p, int d);
-        public abstract bool TwoSegmentCross(IReadOnlyList<int> hSeg, IReadOnlyList<int> vSeg);
-        public int[] GetSegment(int index) => Segments[index];
+        public abstract bool IsSegmentsCross(IReadOnlyList<int> hSeg, IReadOnlyList<int> vSeg);
+        public abstract int[] GetSegment(int index);
+        public abstract void AddSegment(int[] segment);
 
-        public void AddSegment(int[] segment) {
-            Segments[2] = Segments[1];
-            Segments[1] = Segments[0];
-            Segments[0] = segment;
+        protected void BaseAddSegment(IList<int[]> segments, int[] segment) {
+            segments[2] = segments[1];
+            segments[1] = segments[0];
+            segments[0] = segment;
         }
     }
 
     private class UpService : BaseOrientedService {
-        public UpService(int[][] vSegments) : base(vSegments) { }
+        public UpService(int[][] vSegments, int[][] hSegments) : base(vSegments, hSegments) { }
 
-        public override bool IsShrunken(Point p) => p.X > Segments[1][0];
+        public override bool IsShrunken(Point p) => p.X <= VSegments[1][0];
 
         public override int[] CreateSegment(Point p, int d) => new[] { p.X, p.Y, p.Y + d };
 
@@ -186,15 +183,21 @@ public class SelfCrossing {
             return p;
         }
 
-        public override bool TwoSegmentCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment) =>
+        public override bool IsSegmentsCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment) =>
             checkSegment[0] <= seg[0] && seg[0] <= checkSegment[1] &&
             seg[1] <= checkSegment[2] && checkSegment[2] <= seg[2];
+
+        public override int[] GetSegment(int index) => HSegments[index];
+
+        public override void AddSegment(int[] segment) {
+            BaseAddSegment(VSegments, segment);
+        }
     }
 
     private class DownService : BaseOrientedService {
-        public DownService(int[][] vSegments) : base(vSegments) { }
+        public DownService(int[][] vSegments, int[][] hSegments) : base(vSegments, hSegments) { }
 
-        public override bool IsShrunken(Point p) => p.X < Segments[1][0];
+        public override bool IsShrunken(Point p) => p.X >= VSegments[1][0];
 
         public override int[] CreateSegment(Point p, int d) => new[] { p.X, p.Y - d, p.Y };
 
@@ -203,15 +206,21 @@ public class SelfCrossing {
             return p;
         }
 
-        public override bool TwoSegmentCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment) =>
+        public override bool IsSegmentsCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment) =>
             checkSegment[0] <= seg[0] && seg[0] <= checkSegment[1] &&
             seg[1] <= checkSegment[2] && checkSegment[2] <= seg[2];
+
+        public override int[] GetSegment(int index) => HSegments[index];
+
+        public override void AddSegment(int[] segment) {
+            BaseAddSegment(VSegments, segment);
+        }
     }
 
     private class LeftService : BaseOrientedService {
-        public LeftService(int[][] hSegments) : base(hSegments) { }
+        public LeftService(int[][] vSegments, int[][] hSegments) : base(vSegments, hSegments) { }
 
-        public override bool IsShrunken(Point p) => p.Y > Segments[1][2];
+        public override bool IsShrunken(Point p) => p.Y <= HSegments[1][2];
 
         public override int[] CreateSegment(Point p, int d) => new[] { p.X - d, p.X, p.Y };
 
@@ -220,15 +229,21 @@ public class SelfCrossing {
             return p;
         }
 
-        public override bool TwoSegmentCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment) =>
+        public override bool IsSegmentsCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment) =>
             seg[0] <= checkSegment[0] && checkSegment[0] <= seg[1] &&
             checkSegment[1] <= seg[2] && seg[2] <= checkSegment[2];
+
+        public override int[] GetSegment(int index) => VSegments[index];
+
+        public override void AddSegment(int[] segment) {
+            BaseAddSegment(HSegments, segment);
+        }
     }
 
     private class RightService : BaseOrientedService {
-        public RightService(int[][] hSegments) : base(hSegments) { }
+        public RightService(int[][] vSegments, int[][] hSegments) : base(vSegments, hSegments) { }
 
-        public override bool IsShrunken(Point p) => p.Y < Segments[1][2];
+        public override bool IsShrunken(Point p) => p.Y >= HSegments[1][2];
 
         public override int[] CreateSegment(Point p, int d) => new[] { p.X, p.X + d, p.Y };
 
@@ -237,9 +252,15 @@ public class SelfCrossing {
             return p;
         }
 
-        public override bool TwoSegmentCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment) =>
+        public override bool IsSegmentsCross(IReadOnlyList<int> seg, IReadOnlyList<int> checkSegment) =>
             seg[0] <= checkSegment[0] && checkSegment[0] <= seg[1] &&
             checkSegment[1] <= seg[2] && seg[2] <= checkSegment[2];
+
+        public override int[] GetSegment(int index) => VSegments[index];
+
+        public override void AddSegment(int[] segment) {
+            BaseAddSegment(HSegments, segment);
+        }
     }
 
 
