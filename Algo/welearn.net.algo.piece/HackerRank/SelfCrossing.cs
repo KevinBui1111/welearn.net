@@ -65,11 +65,6 @@ public class SelfCrossing {
     }
 
     public bool IsSelfCrossing2(int[] distance) {
-        const int up = 0;
-        const int left = 1;
-        const int down = 2;
-        const int right = 3;
-
         var curPoint = new Point();
         /*
          * horizontal segment: xf - xt, y
@@ -263,7 +258,58 @@ public class SelfCrossing {
         }
     }
 
+    public bool IsSelfCrossingOther(int[] distance) {
+        bool inside = false;
+        bool danger = false;
 
+        if(distance.Length<4){
+            return false;
+        }
+        int x = 0;
+        int y = 0;
+        y += distance[0];
+        x -= distance[1];
+
+        for(int i = 2; i<distance.Length; i++){
+            if(i%4 == 0){
+                y+= distance[i];
+            }else{
+                if(i%4==1){
+                    x-=distance[i];
+                }else{
+                    if(i%4==2){
+                        y-=distance[i];
+                    }
+                    else{
+                        x+=distance[i];
+                    }
+                }
+            }
+            if(x == 0 && y==0){
+                return true;
+            }
+            if(inside && distance[i]>= distance[i-2]){
+                return true;
+            }
+            if(danger){
+                if(distance[i]>= distance[i-2]-distance[i-4]){
+                    return true;
+                }
+                danger = false;
+            }
+            if(!inside && distance[i] <= distance[i-2]){
+                inside = true;
+                
+                if(i >= 4){
+                    if(distance[i]>= distance[i-2]-distance[i-4]){
+                        danger = true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
     public static void Test() {
         int x = 5;
         int[] a = { x += 2, x };
