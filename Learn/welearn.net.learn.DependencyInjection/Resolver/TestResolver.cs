@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using welearn.net.learn.DependencyInjection.LifeTime;
@@ -22,6 +23,7 @@ public class TestResolver {
                     _ => throw new ArgumentOutOfRangeException(nameof(key), key, null)
                 }
             )
+            .AddTransient<IDelivery, FastDeliveryService>()
             .BuildServiceProvider();
 
         var controller = serviceProvider.GetRequiredService<FirstController>();
@@ -31,5 +33,8 @@ public class TestResolver {
         var controller2 = serviceProvider.GetRequiredService<SecondController>();
         controller2.Foo();
         Console.WriteLine(Counter.NumInstance); //2
+
+        // following will throw exception
+        // var service = serviceProvider.GetRequiredService<INationDelivery>();
     }
 }
