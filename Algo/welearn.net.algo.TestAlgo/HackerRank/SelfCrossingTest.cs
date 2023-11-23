@@ -8,6 +8,7 @@ public class SelfCrossingTest {
 
     public static IEnumerable<object[]> SelfCrossData {
         get {
+            yield return new object[] { new[] { 1, 1, 3 }, false };
             yield return new object[] { new[] { 1, 1, 3, 2, 1, 1 }, false };
             yield return new object[] { new[] { 1, 2, 2, 2 }, false };
             yield return new object[] { new[] { 1, 1, 2, 1, 1 }, true };
@@ -48,6 +49,20 @@ public class SelfCrossingTest {
     [MemberData(nameof(SelfCrossData))]
     public void Test4(int[] points, bool expected) {
         var actual = _sc.IsSelfCrossing4(points);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [MemberData(nameof(SelfCrossData))]
+    public void Test5(int[] points, bool expected) {
+        var actual = _sc.IsSelfCrossing5(points);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [MemberData(nameof(SelfCrossData))]
+    public void TestPython(int[] points, bool expected) {
+        var actual = _sc.IsSelfCrossingPython(points);
         Assert.Equal(expected, actual);
     }
 }

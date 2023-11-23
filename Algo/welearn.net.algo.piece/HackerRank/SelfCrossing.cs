@@ -349,6 +349,69 @@ public class SelfCrossing {
         return true;
     }
 
+    // improve, after refer solution in LeetCode,
+    public bool IsSelfCrossing5(IEnumerable<int> d) {
+        int d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0;
+
+        foreach (var d0 in d) {
+            if (d0 >= d2 && d1 <= d3 && d1 > 0) return true;
+
+            if (d5 > 0 &&
+                d1 >= d3 - d5 &&
+                d1 <= d3 &&
+                d0 >= d2 - d4
+               )
+                return true;
+
+            if (d4 > 0 &&
+                d1 == d3 &&
+                d0 >= d2 - d4
+               )
+                return true;
+
+            (d1, d2, d3, d4, d5) = (d0, d1, d2, d3, d4);
+        }
+
+        return false;
+    }
+
+    // improve, after refer python solution in LeetCode,
+    public bool IsSelfCrossingPython(IEnumerable<int> distance) {
+        int d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0;
+
+        foreach (var d0 in distance) {
+            if (0 < d1 && d1 <= d3 &&
+                (
+                    d0 >= d2 ||
+                    d0 >= d2 - d4 && d1 >= d3 - d5
+                )
+               )
+                return true;
+
+            (d1, d2, d3, d4, d5) = (d0, d1, d2, d3, d4);
+        }
+
+        return false;
+    }
+
+    public bool IsSelfCrossingOther2(int[] ds) {
+        for (var i = 3; i < ds.Length; ++i)
+        {
+            if (ds[i] >= ds[i - 2] && ds[i - 1] <= ds[i - 3]) return true;
+            if (i >= 4 
+                && ds[i] >= ds[i - 2] - ds[i - 4]
+                && ds[i - 1] == ds[i - 3])
+                return true;
+            
+            if (i >= 5 
+                && ds[i] >= ds[i - 2] - ds[i - 4]
+                && ds[i - 1] >= ds[i - 3] - ds[i - 5]
+                && ds[i - 3] >= ds[i - 1])
+                return true;
+        }
+        return false;
+    }
+
     public static void Test() {
         int x = 5;
         int[] a = { x += 2, x };
