@@ -28,4 +28,12 @@ public static class ListUtil {
             (array[n], array[k]) = (array[k], array[n]);
         }
     }
+
+    public static void Shuffle<T>(IList<T> array) {
+        var n = array.Count;
+        while (n > 1) {
+            var k = Rng.Next(n--);
+            (array[n], array[k]) = (array[k], array[n]);
+        }
+    }
 }

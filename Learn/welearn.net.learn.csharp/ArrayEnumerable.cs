@@ -47,6 +47,8 @@ public class ArrayEnumerable {
     }
 
     public static void Sorting() {
+        #region sort Array
+
         var enumInts = Enumerable.Range(1, 10);
         // create random array.
         var arrayInts = enumInts.ToArray();
@@ -85,11 +87,16 @@ public class ArrayEnumerable {
         
         Array.Sort(students, (student1, student2) => student1.Age - student2.Age);
         students.PrintConsole();
+        
+        #endregion
 
         #region Sort List
-
         
-
+        Console.WriteLine("\n==== Sort List of objects:");
+        var listStudent = (List<Student>)students.ToList().Shuffle();
+        listStudent.Sort((s1, s2) => string.CompareOrdinal(s1.Name, s2.Name));
+        listStudent.PrintConsole();
+        
         #endregion s
     }
 }
