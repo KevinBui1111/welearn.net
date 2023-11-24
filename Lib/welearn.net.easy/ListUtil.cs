@@ -1,7 +1,7 @@
 ﻿namespace welearn.net.easy;
 
 public static class ListUtil {
-    private static readonly Random Rng = new();
+    private static readonly Random Rng = Random.Shared;
 
     public static List<(long from, long to)> Distribute(long from, long to, int groupCount) {
         long size = to - from,
@@ -23,6 +23,14 @@ public static class ListUtil {
 
     public static void Shuffle<T>(T[] array) {
         var n = array.Length;
+        while (n > 1) {
+            var k = Rng.Next(n--);
+            (array[n], array[k]) = (array[k], array[n]);
+        }
+    }
+
+    public static void Shuffle<T>(IList<T> array) {
+        var n = array.Count;
         while (n > 1) {
             var k = Rng.Next(n--);
             (array[n], array[k]) = (array[k], array[n]);
