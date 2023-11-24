@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace welearn.net.algo.piece.HackerRank; 
 
 //https://leetcode.com/problems/contains-duplicate-iii/description/
@@ -39,6 +41,23 @@ public class ContainsDuplicateIII {
         return false;
 
         int GetBucket(int n) => (n - int.MinValue / 2) / (valueDiff + 1);
+    }
+    
+    // reference to https://leetcode.com/problems/contains-duplicate-iii/solutions/1850389/c-simple-solution/
+    public bool Contains3(int[] nums, int indexDiff, int valueDiff) {
+        var sortedSet = new SortedSet<int>();
+
+        for (var i = 0; i < nums.Length; i++) {
+            var n = nums[i];
+            var view = sortedSet.GetViewBetween(n - valueDiff, n + valueDiff);
+            if (view.Count > 0) return true;
+
+            if (indexDiff <= i) sortedSet.Remove(nums[i - indexDiff]);
+            
+            sortedSet.Add(n);
+        }
+
+        return false;
     }
 
     public static void Test() {

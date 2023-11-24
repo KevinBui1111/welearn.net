@@ -38,4 +38,11 @@ public class ContainDupTest {
         var actual = new ContainsDuplicateIII().Contains2(nums, indexDiff,valueDiff);
         Assert.Equal(expected, actual);
     }
+    
+    [Theory]
+    [MemberData(nameof(ContainDupData))]
+    public void Test3(int[] nums, int indexDiff, int valueDiff, bool expected) {
+        var actual = new ContainsDuplicateIII().Contains3(nums, indexDiff,valueDiff);
+        Assert.Equal(expected, actual);
+    }
 }
