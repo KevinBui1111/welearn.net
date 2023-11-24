@@ -1,7 +1,7 @@
 ﻿namespace welearn.net.easy;
 
 public static class ListUtil {
-    private static readonly Random Rng = new();
+    private static readonly Random Rng = Random.Shared;
 
     public static List<(long from, long to)> Distribute(long from, long to, int groupCount) {
         long size = to - from,

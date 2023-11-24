@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using welearn.net.easy;
+using welearn.net.learn.csharp.Entities;
 
 namespace welearn.net.learn.csharp;
 
@@ -41,5 +43,53 @@ public class ArrayEnumerable {
         
         //instantiate a C# array with a single value
         Enumerable.Repeat(9, 1000).ToArray();
+        Array.Fill(unused, 9);
+    }
+
+    public static void Sorting() {
+        var enumInts = Enumerable.Range(1, 10);
+        // create random array.
+        var arrayInts = enumInts.ToArray();
+        
+        Console.WriteLine("==== A random array:");
+        ListUtil.Shuffle(arrayInts);
+        arrayInts.PrintConsole();
+        
+        // sort array.
+        Console.WriteLine("- Sort array:");
+        Array.Sort(arrayInts);
+        arrayInts.PrintConsole();
+
+        Console.WriteLine("\n==== Sort array and get indexes:");
+        var indexes = Enumerable.Range(0, arrayInts.Length).ToArray();
+        Console.WriteLine("- A random array:");
+        ListUtil.Shuffle(arrayInts);
+        arrayInts.PrintConsole();
+        
+        Console.WriteLine("- Sort array:");
+        Array.Sort(arrayInts, indexes);
+        arrayInts.PrintConsole();
+        Console.WriteLine("- indexes after sorting:");
+        indexes.PrintConsole();
+        
+        // sort descending order
+        Array.Sort(arrayInts, (a, b) => b.CompareTo(a));
+        
+        Console.WriteLine("\n==== Sort array of objects:");
+        // array of object
+        Student[] students = {
+            new(10, "Eni" ),
+            new(5, "Khanh" ),
+            new(15, "Steve" ),
+        };
+        
+        Array.Sort(students, (student1, student2) => student1.Age - student2.Age);
+        students.PrintConsole();
+
+        #region Sort List
+
+        
+
+        #endregion s
     }
 }
