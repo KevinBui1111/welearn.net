@@ -1,5 +1,6 @@
 namespace welearn.net.algo.piece.HackerRank; 
 
+//https://leetcode.com/problems/contains-duplicate-iii/description/
 public class ContainsDuplicateIII {
     public bool ContainsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff) {
         var indexes = Enumerable.Range(0, nums.Length).ToArray();
@@ -10,6 +11,34 @@ public class ContainsDuplicateIII {
             if (Math.Abs(indexes[i] - indexes[j]) <= indexDiff)
                 return true;
         return false;
+    }
+    
+    // reference to https://leetcode.com/problems/contains-duplicate-iii/solutions/61645/ac-o-n-solution-in-java-using-buckets-with-explanation/
+    public bool Contains2(int[] nums, int indexDiff, int valueDiff) {
+        var buckets = new Dictionary<int, int>();
+
+        for (var i = 0; i < nums.Length; i++) {
+            var n = nums[i];
+            var bucketIndex = GetBucket(n);
+            if (buckets.ContainsKey(bucketIndex)) return true;
+
+            if (buckets.TryGetValue(bucketIndex + 1, out var nG) &&
+                nG - n <= valueDiff) return true;
+
+            if (buckets.TryGetValue(bucketIndex - 1, out var nL) &&
+                n - nL <= valueDiff) return true;
+
+            if (indexDiff <= i) {
+                var bucketOld = GetBucket(nums[i - indexDiff]);
+                buckets.Remove(bucketOld);
+            }
+
+            buckets[bucketIndex] = n;
+        }
+
+        return false;
+
+        int GetBucket(int n) => (n - int.MinValue / 2) / (valueDiff + 1);
     }
 
     public static void Test() {
