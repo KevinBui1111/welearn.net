@@ -30,6 +30,14 @@ public class HeapTest {
         AssertHeap(arr);
     }
 
+    [Theory]
+    [MemberData(nameof(ArrayTest))]
+    public void Test2(int[] arr) {
+        var heap = new Heap();
+        heap.BuildMaxHeap2(arr);
+        AssertHeap(arr);
+    }
+
     private void AssertHeap(int[] arr) {
         for (var i = 0; i < arr.Length / 2 - 1; ++i) {
             Assert.True(arr[i] >= arr[2 * i + 1], $"node {i}, compare to left child"); // left child
@@ -40,6 +48,6 @@ public class HeapTest {
         if (lastInd > 0)
             Assert.True(arr[lastInd] <= arr[(lastInd - 1) / 2], $"node {lastInd}, compare to parent"); // left child
         if (lastInd > 1)
-            Assert.True(arr[lastInd] <= arr[(lastInd - 2) / 2], $"node {lastInd}, compare to parent"); // left child
+            Assert.True(arr[lastInd - 1] <= arr[(lastInd - 2) / 2], $"node {lastInd}, compare to parent"); // left child
     }
 }
