@@ -50,4 +50,16 @@ public class HeapTest {
         if (lastInd > 1)
             Assert.True(arr[lastInd - 1] <= arr[(lastInd - 2) / 2], $"node {lastInd}, compare to parent"); // left child
     }
+
+    [Theory]
+    [MemberData(nameof(ArrayTest))]
+    public void Sort(int[] arr) {
+        var orgArr = (int[])arr.Clone();
+        Array.Sort(orgArr);
+        
+        var heap = new Heap();
+        heap.Sort(arr);
+        
+        Assert.Equal(orgArr, arr);
+    }
 }

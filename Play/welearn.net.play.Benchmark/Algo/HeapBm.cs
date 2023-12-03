@@ -26,9 +26,9 @@ public class HeapBm {
         
         var rnd0 = new Random(0);
         _testCase = TestArrayType switch {
-            ArrayType.Increase => Enumerable.Range(1, 100_000).ToArray(),
-            ArrayType.Decrease => Enumerable.Range(1, 100_000).Reverse().ToArray(),
-            ArrayType.Random => Enumerable.Range(1, 100_000).Select(_ => rnd0.Next(10_000)).ToArray(),
+            ArrayType.Increase => Enumerable.Range(1, 10_000_000).ToArray(),
+            ArrayType.Decrease => Enumerable.Range(1, 10_000_000).Reverse().ToArray(),
+            ArrayType.Random => Enumerable.Range(1, 10_000_000).Select(_ => rnd0.Next(10_000_000)).ToArray(),
             _ => _testCase
         };
     }

@@ -18,28 +18,37 @@ public class Heap {
     
     public void BuildMaxHeap2(int[] arr) {
         for (var i = arr.Length / 2 - 1; i >= 0; --i) {
-            Heapify(arr, i);
+            Heapify(arr, arr.Length, i);
         }
     }
 
-    private static void Heapify(int[] arr, int idx) {
-        do {
-            int left = 2 * idx + 1,
-                right = 2 * idx + 2;
-            
-            var child =
-                right < arr.Length &&
-                arr[left] < arr[right]
-                    ? right
-                    : left;
+    private static void Heapify(int[] arr, int size, int i) {
+        if (size == 1) return;
 
-            if (arr[idx] < arr[child])
-                (arr[idx], arr[child]) = (arr[child], arr[idx]);
+        do {
+            int l = 2 * i + 1,
+                r = 2 * i + 2;
+            
+            var child = r < size && arr[l] < arr[r] ? r : l;
+
+            if (arr[i] < arr[child])
+                (arr[i], arr[child]) = (arr[child], arr[i]);
             else
                 break;
 
-            idx = child;
+            i = child;
 
-        } while (2 * idx + 1 < arr.Length);
+        } while (2 * i + 1 < size);
+    }
+
+    public void Sort(int[] arr) {
+        BuildMaxHeap2(arr);
+        
+        var size = arr.Length;
+        while (size-- > 1) {
+            // remove root node
+            (arr[0], arr[size]) = (arr[size], arr[0]);
+            Heapify(arr, size, 0);
+        }
     }
 }
