@@ -1,4 +1,5 @@
 using welearn.net.algo.piece;
+using welearn.net.algo.piece.Sort;
 
 namespace welearn.net.algo.TestAlgo;
 
@@ -83,4 +84,42 @@ public class HeapTest {
         
         Assert.Equal(orgArr, arr);
     }
+
+    [Fact]
+    public void BinHeap() {
+        int[] arr = { 2, 8, 5, 3, 9, 1 };
+        var arr1 = (int[])arr.Clone();
+        
+        Array.Sort(arr, (a, b) => b - a);
+        
+        var binHeap = new BinHeap<int>(arr1);
+        var list = new List<int>();
+        var v = binHeap.Pop();
+        while (v > 0) {
+            list.Add(v);
+            v = binHeap.Pop();
+        }
+        
+        Assert.Equal(arr, list.ToArray());
+    }
+
+    [Fact]
+    public void BinHeapMin() {
+        int[] arr = { 2, 8, 5, 3, 9, 1 };
+        var arr1 = (int[])arr.Clone();
+        
+        Array.Sort(arr);
+        
+        var binHeap = new BinHeap<int>(arr1, Comparer<int>.Create((a, b) => b - a));
+        var list = new List<int>();
+        var v = binHeap.Pop();
+        while (v > 0) {
+            list.Add(v);
+            v = binHeap.Pop();
+        }
+        
+        Assert.Equal(arr, list.ToArray());
+    }
+    
+    
 }
