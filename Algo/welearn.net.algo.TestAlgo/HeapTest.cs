@@ -38,7 +38,7 @@ public class HeapTest {
         AssertHeap(arr);
     }
 
-    private void AssertHeap(int[] arr) {
+    private static void AssertHeap(int[] arr) {
         for (var i = 0; i < arr.Length / 2 - 1; ++i) {
             Assert.True(arr[i] >= arr[2 * i + 1], $"node {i}, compare to left child"); // left child
             Assert.True(arr[i] >= arr[2 * i + 2], $"node {i}, compare to right child"); // right child
