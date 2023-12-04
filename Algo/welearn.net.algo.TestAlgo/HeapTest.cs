@@ -38,6 +38,14 @@ public class HeapTest {
         AssertHeap(arr);
     }
 
+    [Theory]
+    [MemberData(nameof(ArrayTest))]
+    public void BuildMinHeap(int[] arr) {
+        var heap = new Heap();
+        heap.BuildMinHeap(arr);
+        AssertHeapMin(arr);
+    }
+
     private static void AssertHeap(int[] arr) {
         for (var i = 0; i < arr.Length / 2 - 1; ++i) {
             Assert.True(arr[i] >= arr[2 * i + 1], $"node {i}, compare to left child"); // left child
@@ -49,6 +57,19 @@ public class HeapTest {
             Assert.True(arr[lastInd] <= arr[(lastInd - 1) / 2], $"node {lastInd}, compare to parent"); // left child
         if (lastInd > 1)
             Assert.True(arr[lastInd - 1] <= arr[(lastInd - 2) / 2], $"node {lastInd}, compare to parent"); // left child
+    }
+
+    private static void AssertHeapMin(int[] arr) {
+        for (var i = 0; i < arr.Length / 2 - 1; ++i) {
+            Assert.True(arr[i] <= arr[2 * i + 1], $"node {i}, compare to left child"); // left child
+            Assert.True(arr[i] <= arr[2 * i + 2], $"node {i}, compare to right child"); // right child
+        }
+
+        var lastInd = arr.Length - 1;
+        if (lastInd > 0)
+            Assert.True(arr[lastInd] >= arr[(lastInd - 1) / 2], $"node {lastInd}, compare to parent"); // left child
+        if (lastInd > 1)
+            Assert.True(arr[lastInd - 1] >= arr[(lastInd - 2) / 2], $"node {lastInd}, compare to parent"); // left child
     }
 
     [Theory]

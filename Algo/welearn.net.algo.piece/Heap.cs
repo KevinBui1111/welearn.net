@@ -21,6 +21,12 @@ public class Heap {
             Heapify(arr, arr.Length, i);
         }
     }
+    
+    public void BuildMinHeap(int[] arr) {
+        for (var i = arr.Length / 2 - 1; i >= 0; --i) {
+            HeapifyMin(arr, arr.Length, i);
+        }
+    }
 
     private static void Heapify(int[] arr, int size, int i) {
         if (size == 1) return;
@@ -32,6 +38,25 @@ public class Heap {
             var child = r < size && arr[l] < arr[r] ? r : l;
 
             if (arr[i] < arr[child])
+                (arr[i], arr[child]) = (arr[child], arr[i]);
+            else
+                break;
+
+            i = child;
+
+        } while (2 * i + 1 < size);
+    }
+
+    private static void HeapifyMin(int[] arr, int size, int i) {
+        if (size == 1) return;
+
+        do {
+            int l = 2 * i + 1,
+                r = 2 * i + 2;
+            
+            var child = r < size && arr[l] > arr[r] ? r : l;
+
+            if (arr[i] > arr[child])
                 (arr[i], arr[child]) = (arr[child], arr[i]);
             else
                 break;
