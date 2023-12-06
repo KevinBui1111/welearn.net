@@ -7,6 +7,8 @@ public class BinHeap<T> {
 
     public BinHeap(T[] arr) : this(arr, Comparer<T>.Default) { }
 
+    public BinHeap(T[] arr, Comparison<T> comparison) : this(arr, Comparer<T>.Create(comparison)) { }
+
     public BinHeap(T[] arr, IComparer<T> comparer) {
         _array = arr;
         _size = arr.Length;
@@ -28,11 +30,11 @@ public class BinHeap<T> {
             int l = 2 * i + 1,
                 r = 2 * i + 2;
 
-            var child = r < size && _comparer.Compare(_array[l], _array[r]) < 0
+            var child = r < size && _comparer.Compare(_array[l], _array[r]) > 0
                 ? r
                 : l;
 
-            if (_comparer.Compare(_array[i], _array[child]) < 0)
+            if (_comparer.Compare(_array[i], _array[child]) > 0)
                 (_array[i], _array[child]) = (_array[child], _array[i]);
             else
                 break;

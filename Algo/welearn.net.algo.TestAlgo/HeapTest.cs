@@ -92,7 +92,7 @@ public class HeapTest {
         
         Array.Sort(arr, (a, b) => b - a);
         
-        var binHeap = new BinHeap<int>(arr1);
+        var binHeap = new BinHeap<int>(arr1, (a, b) => b - a);
         var list = new List<int>();
         var v = binHeap.Pop();
         while (v > 0) {
@@ -110,7 +110,7 @@ public class HeapTest {
         
         Array.Sort(arr);
         
-        var binHeap = new BinHeap<int>(arr1, Comparer<int>.Create((a, b) => b - a));
+        var binHeap = new BinHeap<int>(arr1);
         var list = new List<int>();
         var v = binHeap.Pop();
         while (v > 0) {
