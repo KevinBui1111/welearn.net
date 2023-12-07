@@ -9,7 +9,7 @@ public class BinHeap<T> {
 
     public BinHeap(T[] arr, Comparison<T> comparison) : this(arr, Comparer<T>.Create(comparison)) { }
 
-    public BinHeap(T[] arr, IComparer<T> comparer) {
+    private BinHeap(T[] arr, IComparer<T> comparer) {
         _array = arr;
         _size = arr.Length;
         _comparer = comparer;
@@ -43,7 +43,11 @@ public class BinHeap<T> {
         } while (2 * i + 1 < size);
     }
 
-    public T Peek() => _array[0];
+    public bool IsEmpty => _size == 0;
+
+    public T Peek() {
+        return _size > 0 ? _array[0] : throw new InvalidOperationException();
+    }
 
     public T? Pop() {
         if (_size == 0) return default;
