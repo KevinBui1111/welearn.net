@@ -1,4 +1,5 @@
 using System.Numerics;
+using welearn.net.algo.piece.Common;
 using welearn.net.algo.piece.HackerRank;
 
 namespace welearn.net.algo.TestAlgo.HackerRank; 
@@ -7,11 +8,11 @@ public class RotateListTest {
     
     public static IEnumerable<object[]> TestData {
         get {
-            var n5 = new RotateList.ListNode(1, null);
-            var n4 = new RotateList.ListNode(1, n5);
-            var n3 = new RotateList.ListNode(1, n4);
-            var n2 = new RotateList.ListNode(1, n3);
-            var n1 = new RotateList.ListNode(1, n2);
+            var n5 = new ListNode(1, null);
+            var n4 = new ListNode(1, n5);
+            var n3 = new ListNode(1, n4);
+            var n2 = new ListNode(1, n3);
+            var n1 = new ListNode(1, n2);
 
             return new List<object[]> {
                 new object[] { n1, 1, n5 },
@@ -27,7 +28,7 @@ public class RotateListTest {
     
     [Theory]
     [MemberData(nameof(TestData))]
-    public void Test(RotateList.ListNode head, int k, RotateList.ListNode expected) {
+    public void Test(ListNode head, int k, ListNode expected) {
         var actual = RotateList.RotateRight(head, k);
         Assert.Equal(expected, actual);
     }

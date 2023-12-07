@@ -1,16 +1,9 @@
+using welearn.net.algo.piece.Common;
+
 namespace welearn.net.algo.piece.HackerRank;
 
 public class RotateList {
     //https://leetcode.com/problems/rotate-list/description/
-    public class ListNode {
-        public int val;
-        public ListNode next;
-
-        public ListNode(int val = 0, ListNode next = null) {
-            this.val = val;
-            this.next = next;
-        }
-    }
 
     public static ListNode RotateRight(ListNode head, int k) {
         // l = 5
