@@ -5,7 +5,7 @@ namespace welearn.net.algo.piece.LeetCode;
 
 public class MergeKSortedLists {
     public ListNode MergeKLists(ListNode?[] lists) {
-        ListNode root = null, current = null;
+        ListNode root = new(), current = root;
         
         var heap = new BinHeap<ListNode>(
             lists.Where(a => a != null).ToArray(),
@@ -14,7 +14,6 @@ public class MergeKSortedLists {
         
         while (!heap.IsEmpty) {
             var max = heap.Peek();
-            root ??= current = max; // first time
 
             var next = max.next;
             current.next = current = max;
@@ -27,6 +26,28 @@ public class MergeKSortedLists {
 
         if (current != null) current.next = null;
 
-        return root;
+        return root.next;
+    }
+
+    //https://leetcode.com/problems/merge-k-sorted-lists/solutions/3232932/very-simple-priorityqueue-solution-beats-83/
+    public ListNode MergeKLists3(ListNode[] lists) {
+        var pq = new PriorityQueue<ListNode, int>();
+
+        foreach (var node in lists)
+            if (node != null)
+                pq.Enqueue(node, node.val);
+
+        ListNode root = new(), current = root;
+
+        while (pq.Count > 0) {
+            var node = pq.Dequeue();
+
+            if (node.next != null)
+                pq.Enqueue(node.next, node.next.val);
+
+            current = current.next = new ListNode(node.val);
+        }
+
+        return root.next;
     }
 }
