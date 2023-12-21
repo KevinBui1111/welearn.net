@@ -171,6 +171,7 @@ public static class Prime
     //      1:26, core i7 - 10850H 2.7GHz
     //      1:14, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
     //      1:14, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
+    //      1:11, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
     public static long NthPrime(int n)
     {
         // find prime up to MAX
@@ -225,6 +226,7 @@ public static class Prime
     ///                 1:23, core i7 - 10850H 2.7GHz
     ///                 1:15, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
     ///                 1:12, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
+    ///                 1:10, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
     /// </summary>
     public static (long count, long last) HowMany(long bound) {
         int MAX_PART = 1_000_000;
@@ -257,6 +259,7 @@ public static class Prime
     ///                 17.8, core i7 - 10850H 2.7GHz
     ///                 19.0, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
     ///                 12.4, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
+    ///                 16.4, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
     /// </summary>
     public static (long count, long last) HowManyParallel(long bound) {
         int MAX_PART = 1_000_000;
