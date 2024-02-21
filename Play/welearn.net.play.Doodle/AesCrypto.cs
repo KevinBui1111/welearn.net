@@ -18,8 +18,7 @@ public static class AesCrypto
 
         // Generate a random initialization vector (IV)
         var iv = new byte[aes.BlockSize / 8];
-        // using (var rng = RandomNumberGenerator.Create()) rng.GetBytes(iv);
-        Random.Shared.NextBytes(iv);
+        using (var rng = RandomNumberGenerator.Create()) rng.GetBytes(iv);
 
         // Create an encryptor
         using var encryptor = aes.CreateEncryptor(keyBytes, iv);
@@ -42,6 +41,23 @@ public static class AesCrypto
         Buffer.BlockCopy(iv, 0, combined, 0, iv.Length);
         Buffer.BlockCopy(cipherBytes, 0, combined, iv.Length, cipherBytes.Length);
 
+        // Convert the encrypted bytes to a Base64-encoded string
+        return Convert.ToBase64String(combined);
+    }
+    
+    public static string Encrypt2(string plainText, byte[] keyBytes)
+    {
+        // Convert key and text to byte arrays
+        var plainBytes = Encoding.UTF8.GetBytes(plainText);
+        // Create a new Aes object with CBC mode and PKCS7 padding
+        using var aes = Aes.Create();
+        aes.Key = keyBytes;
+        // Generate a random initialization vector (IV)
+        var iv = new byte[aes.BlockSize / 8];
+        Random.Shared.NextBytes(iv);
+
+        var cipherBytes = aes.EncryptCbc(plainBytes, iv);
+        var combined = iv.Concat(cipherBytes).ToArray();
         // Convert the encrypted bytes to a Base64-encoded string
         return Convert.ToBase64String(combined);
     }
@@ -74,7 +90,7 @@ public static class AesCrypto
         var keyBytes = Convert.FromBase64String(stringKey);
 
         const string plainText = "010583";
-        var cipherText = AesCrypto.Encrypt(plainText, keyBytes);
+        var cipherText = AesCrypto.Encrypt2(plainText, keyBytes);
         Console.WriteLine($"Encrypted text: {cipherText}");
 
         var res = AesCrypto.Decrypt(cipherText, stringKey);
