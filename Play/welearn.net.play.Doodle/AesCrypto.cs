@@ -44,8 +44,8 @@ public static class AesCrypto
         // Convert the encrypted bytes to a Base64-encoded string
         return Convert.ToBase64String(combined);
     }
-    
-    public static string Encrypt2(string plainText, byte[] keyBytes)
+
+    public static string EncryptCbc(string plainText, byte[] keyBytes)
     {
         // Convert key and text to byte arrays
         var plainBytes = Encoding.UTF8.GetBytes(plainText);
@@ -62,19 +62,50 @@ public static class AesCrypto
         return Convert.ToBase64String(combined);
     }
 
-    public static string Decrypt(string cipherBase64, string keyBase64) =>
-        Decrypt(
+    public static string EncryptEcb(string plainText, byte[] keyBytes)
+    {
+        // Convert key and text to byte arrays
+        var plainBytes = Encoding.UTF8.GetBytes(plainText);
+        // Create a new Aes object with CBC mode and PKCS7 padding
+        using var aes = Aes.Create();
+        aes.Mode = CipherMode.ECB;
+        aes.Key = keyBytes;
+
+        var cipherBytes = aes.EncryptEcb(plainBytes, PaddingMode.PKCS7);
+        // Convert the encrypted bytes to a Base64-encoded string
+        return Convert.ToBase64String(cipherBytes);
+    }
+
+    public static string DecryptCbc(string cipherBase64, string keyBase64) =>
+        DecryptCbc(
             Convert.FromBase64String(cipherBase64),
             Convert.FromBase64String(keyBase64)
         );
 
-    public static string Decrypt(byte[] cipher, byte[] keyBytes)
+    public static string DecryptCbc(byte[] cipher, byte[] keyBytes)
     {
         using var aes = Aes.Create();
         aes.Key = keyBytes;
 
         var ivSize = aes.BlockSize / 8;
         var plainBytes = aes.DecryptCbc(cipher[ivSize..], cipher[..ivSize]);
+
+        return Encoding.UTF8.GetString(plainBytes);
+    }
+
+    public static string DecryptEcb(string cipherBase64, string keyBase64) =>
+        DecryptEcb(
+            Convert.FromBase64String(cipherBase64),
+            Convert.FromBase64String(keyBase64)
+        );
+
+
+    public static string DecryptEcb(byte[] cipher, byte[] keyBytes)
+    {
+        using var aes = Aes.Create();
+        aes.Key = keyBytes;
+
+        var plainBytes = aes.DecryptEcb(cipher, PaddingMode.PKCS7);
 
         return Encoding.UTF8.GetString(plainBytes);
     }
@@ -86,14 +117,16 @@ public static class AesCrypto
         // var stringKey = Convert.ToBase64String(keyBytes);
         // Console.WriteLine($"Key: {stringKey}");
 
-        const string stringKey = "OC7T00PwmpvrLUHuA7PlgiU0b7DPs4aeWjBB622Gmp4=";
-        var keyBytes = Convert.FromBase64String(stringKey);
+        // const string stringKey = "OC7T00PwmpvrLUHuA7PlgiU0b7DPs4aeWjBB622Gmp4=";
+        const string stringKey = "OC7T00PwmpvrLUHuA7PlgiU0b7DPs4ae";
+        // var keyBytes = Convert.FromBase64String(stringKey);
+        var keyBytes = Encoding.UTF8.GetBytes(stringKey);
 
         const string plainText = "010583";
-        var cipherText = AesCrypto.Encrypt2(plainText, keyBytes);
+        var cipherText = AesCrypto.EncryptEcb(plainText, keyBytes);
         Console.WriteLine($"Encrypted text: {cipherText}");
 
-        var res = AesCrypto.Decrypt(cipherText, stringKey);
+        var res = AesCrypto.DecryptEcb(cipherText, Convert.ToBase64String(keyBytes));
         Console.WriteLine($"Decrypt result: {plainText.Equals(res)}");
     }
 }
