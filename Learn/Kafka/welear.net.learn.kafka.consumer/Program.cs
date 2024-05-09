@@ -8,6 +8,7 @@ Console.WriteLine("Hello, World!");
 
 var builder = new ConfigurationBuilder()
         .SetBasePath(Directory.GetCurrentDirectory())
+        .AddEnvironmentVariables()
         .AddJsonFile("appsettings.json")
     ;
 
