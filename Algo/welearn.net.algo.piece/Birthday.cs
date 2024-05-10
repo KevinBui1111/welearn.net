@@ -1,12 +1,21 @@
-using System.Collections;
-
 namespace welearn.net.algo.piece;
 
 public class Birthday {
-    public static void CalcProbabilitySameBirthday() {
+
+    public static void Test()
+    {
+        var manAmount = 88;
+        var probability = CalcProbabilitySameBirthday(manAmount);
+        Console.WriteLine($"Probability for having two person have same birthdate: {probability:P}");
+
+        var p = 0.9;
+        var groupSize = FindLinearX.FindX(CalcProbabilitySameBirthday, 20, p);
+        Console.WriteLine($"Size group that have probability {p:P} for three persons share same birthdate: {groupSize}");
+    }
+    
+    public static double CalcProbabilitySameBirthday(int manAmount) {
         // generate random 100 date
-        const int manAmount = 88;
-        const int testCnt = 100_000;
+        const int testCnt = 10_000;
 
         var mathCnt = 0;
         for (var i = 0; i < testCnt; ++i) {
@@ -15,8 +24,7 @@ public class Birthday {
             mathCnt += HaveTripleSameBirthday(birthdays) ? 1 : 0;
         }
 
-        var probability = mathCnt * 1.0 / testCnt;
-        Console.WriteLine($"Probability for having two person have same birthdate: {probability:P}");
+        return mathCnt * 1.0 / testCnt;
     }
 
     private static IEnumerable<DateOnly> GenRandomDates(int count) {
