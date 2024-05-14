@@ -21,7 +21,22 @@ public class CountRectangleTest
 
             yield return new object[] { points, 3 };
             
-            yield break;
+            yield return new object[] { new List<Point>
+            {
+                new(5, 10),
+                new(7, 10),
+                new(11, 10),
+                
+                new(5, 7),
+                new(7, 7),
+                new(11, 7),
+                
+                new(5, 5),
+                new(7, 5),
+                new(11, 5),
+                
+                new(11, 11),
+            }, 9 };
         }
     }
 
