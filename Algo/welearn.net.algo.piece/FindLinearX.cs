@@ -32,8 +32,7 @@ public class FindLinearX {
         }
     }
 
-    public static void TestFindX()
-    {
+    public static void TestFindX() {
         Func<int, double> fx = x => 2 * x;
         Func<int, double> fx2 = x => x * Math.Log(x);
 

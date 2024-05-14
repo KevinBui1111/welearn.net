@@ -1,9 +1,7 @@
 namespace welearn.net.algo.piece;
 
 public class Birthday {
-
-    public static void Test()
-    {
+    public static void Test() {
         var manAmount = 88;
         var probability = CalcProbabilitySameBirthday(manAmount);
         Console.WriteLine($"Probability for having two person have same birthdate: {probability:P}");
