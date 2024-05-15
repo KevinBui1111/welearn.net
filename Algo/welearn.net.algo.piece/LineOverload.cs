@@ -72,9 +72,17 @@ public class LineOverload {
     public static Segment[] AppendLine2(int[] appendLine, Segment[] thickLine) {
         var appendSegment = new Segment(appendLine[0], 1, appendLine[1]);
 
-        var result = new List<Segment>();
+        var thickLineList = new List<Segment>();
+        if (thickLine[0].From != int.MinValue)
+            thickLineList.Add(new Segment(int.MinValue, 0, thickLine[0].From));
+        
+        thickLineList.AddRange(thickLine);
 
-        foreach (var seg in thickLine) {
+        if (thickLine[^1].To != int.MaxValue)
+            thickLineList.Add(new Segment(thickLine[^1].To, 0, int.MaxValue));
+        
+        var result = new List<Segment>();
+        foreach (var seg in thickLineList) {
             var newSegs = MergeTwoSegment(seg, appendSegment);
             result.AddRange(newSegs);
         }

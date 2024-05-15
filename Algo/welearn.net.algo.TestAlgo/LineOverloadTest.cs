@@ -51,12 +51,12 @@ public class LineOverloadTest {
 
     [Theory]
     [MemberData(nameof(DataTest))]
-    public void Test(string segmentThickString, string lineString, string resultString) {
+    public void Test(string segmentThickString, string lineString, string expected) {
         var segmentThick = LineOverload.Segment.ConstructSegmentThick(segmentThickString);
-        var expected = LineOverload.Segment.ConstructSegmentThick(resultString);
         int[] line = ConvertLine(lineString);
         
-        var actual = LineOverload.AppendLine(line, segmentThick);
+        var actualSegs = LineOverload.AppendLine2(line, segmentThick);
+        var actual = LineOverload.SegmentThick2String(actualSegs);
         Assert.Equal(expected, actual);
     }
 
