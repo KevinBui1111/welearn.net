@@ -61,6 +61,14 @@ public class LineOverloadTest {
     }
 
     [Theory]
+    [InlineData("3 1 5 2 8 3 10 2 15 2 20")]
+    public void SegmentThick2StringTest(string input) {
+        var segmentThick = LineOverload.Segment.ConstructSegmentThick(input);
+        var backToString = LineOverload.SegmentThick2String(segmentThick);
+        Assert.Equal(input, backToString);
+    }
+
+    [Theory]
     [InlineData("5 2 10", "1 1 3",  "5 2 10")]
     [InlineData("5 2 10", "1 1 5",  "5 2 10")]
     [InlineData("5 2 10", "1 1 7",  "5 3 7 2 10")]

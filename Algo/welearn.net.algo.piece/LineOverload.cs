@@ -1,8 +1,10 @@
+using System.Text;
+
 namespace welearn.net.algo.piece;
 
 // from a Dũng (Head), sharing post afternoon interview, 2024-05-14
 public class LineOverload {
-    public static int[][] AnalyseOverload(int[][] lines) {
+    public static string AnalyseOverload(int[][] lines) {
         /* [
               (x1, thick1),
               (x2, thick2),
@@ -10,13 +12,13 @@ public class LineOverload {
               (x4, 0) // end
             ]
           */
-        int[][] result = Array.Empty<int[]>();
         var firstLine = lines[0];
-        var seg = new Segment(firstLine[0], 1, firstLine[1]);
+        var seg = new Segment(int.MinValue, 0, int.MaxValue);
+        var result = new[] { seg };
         foreach (int[] line in lines) {
-            // result = AppendLine(line, result);
+            result = AppendLine2(line, result);
         }
-        return null;
+        return SegmentThick2String(result);
     }
 
     public static Segment[] AppendLine(int[] appendLine, Segment[] thickLine) {
@@ -67,14 +69,8 @@ public class LineOverload {
         return result.ToArray();
     }
 
-    public static Segment[] AppendLine2(string appendSeg, Segment[] thickLine) {
-        var appendSegment = new Segment(appendSeg);
-        // add infinitive head segment.
-        if (thickLine[0].From > int.MinValue) {
-            var listSegment = new List<Segment> { new Segment(int.MinValue, 0) };
-            listSegment.AddRange(thickLine);
-            thickLine = listSegment.ToArray();
-        }
+    public static Segment[] AppendLine2(int[] appendLine, Segment[] thickLine) {
+        var appendSegment = new Segment(appendLine[0], 1, appendLine[1]);
 
         var result = new List<Segment>();
 
@@ -112,6 +108,24 @@ public class LineOverload {
         return Segment.ConstructSegmentThick(
             $"{segMain.From} {segMain.Thick} {seg2.From} {segMain.Thick + seg2.Thick} {segMain.To}"
         );
+    }
+
+    public static string SegmentThick2String(Segment[] thickLine) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < thickLine.Length; ++i) {
+            if (thickLine[i].From == int.MinValue) continue;
+            if (i > 0 && thickLine[i - 1].To != thickLine[i].From)
+                throw new InvalidDataException();
+
+            if (i == thickLine.Length - 1)
+                if (thickLine[i].To == int.MaxValue)
+                    sb.Append($"{thickLine[i].From}");
+                else
+                    sb.Append($"{thickLine[i].From} {thickLine[i].Thick} {thickLine[i].To}");
+            else
+                sb.Append($"{thickLine[i].From} {thickLine[i].Thick} ");
+        }
+        return sb.ToString();
     }
     
     public class Segment {
@@ -165,7 +179,7 @@ public class LineOverload {
 
             var segCnt = parts.Count / 2;
             var segmentThick = Enumerable.Range(0, segCnt)
-                .Select(i => new LineOverload.Segment(
+                .Select(i => new Segment(
                     parts[i * 2],
                     parts[i * 2 + 1],
                     parts[i * 2 + 2]
