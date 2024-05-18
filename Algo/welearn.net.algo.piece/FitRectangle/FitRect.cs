@@ -27,13 +27,14 @@ public class FitRect {
             // determine high/low boundary to form a virtual rectangle with height = topBlock - bottomBlock
             var (topBlock, bottomBlock) = (GetTopBlock(iRect), GetBottomBlock(iRect));
             // search in boundary
-            return FindInBoundary(iRect, topBlock, bottomBlock, iRect.IndexLeft);
+            var point = FindInBoundary(iRect, topBlock, bottomBlock, iRect.IndexLeft);
+            if (point != null) return point;
         }
 
-        return new Point { X = 0, Y = 0 };
+        return null;
     }
 
-    private Point? FindInBoundary(RectExt iRect, int top, int bottom, int iFrom) {
+    private Point? FindInBoundary(Rectangle iRect, int top, int bottom, int iFrom) {
         // check if searchRect 's height is fit to virtual rect 's height
         if (top - bottom < _searchRect.Height) return null;
         // find next block to the right
