@@ -99,4 +99,39 @@ public class ArrayEnumerable {
         
         #endregion s
     }
+
+    public static void BinarySearch() {
+        var enumInt = Enumerable.Range(0, 10)
+            .Select(_ => Random.Shared.Next(70));
+
+        var arrayInt = enumInt.ToList();
+        arrayInt.Sort();
+        arrayInt.PrintConsole();
+
+        var findElement = Random.Shared.Next(100);
+        Find(arrayInt, findElement);
+
+        var reverseComparer = new ReverseComparer();
+        arrayInt.Sort(reverseComparer);
+        arrayInt.PrintConsole();
+        Find(arrayInt, findElement, reverseComparer);
+        
+        return;
+
+        void Find(List<int> arr, int i, IComparer<int>? comparer = default) {
+            var index = arr.BinarySearch(i, comparer);
+
+            var resultStr = index switch {
+                >= 0  => $"Found element {i} at index {index}",
+                _ when ~index == arr.Count => $"Element {i} is greater than maximum value",
+                _ => $"Closest element to {i}: value {arr[~index]} (at index {~index})"
+            };
+
+            Console.WriteLine(resultStr);
+        }
+    }
+
+    private class ReverseComparer : IComparer<int> {
+        public int Compare(int x, int y) => y - x;
+    }
 }
