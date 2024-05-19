@@ -13,7 +13,7 @@ public class Rectangle {
         Height = height;
     }
 
-    public Rectangle(Rectangle rec) {
+    protected Rectangle(Rectangle rec) {
         Left = rec.Left;
         Top = rec.Top;
         Width = rec.Width;
@@ -22,5 +22,7 @@ public class Rectangle {
     
 
     public int Right => Left + Width;
-    public int Bottom => Top + Height;
+    public int Bottom => Top - Height;
+
+    public override string ToString() => $"{Left} {Top} {Width} {Height}";
 }

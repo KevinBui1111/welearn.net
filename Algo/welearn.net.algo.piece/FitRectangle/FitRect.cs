@@ -1,3 +1,4 @@
+using welearn.net.algo.piece.Common.Geo;
 using welearn.net.easy;
 
 namespace welearn.net.algo.piece.FitRectangle;
@@ -38,7 +39,7 @@ public class FitRect {
         // check if searchRect 's height is fit to virtual rect 's height
         if (top - bottom < _searchRect.Height) return null;
         // find next block to the right
-        var rightBlock = GetRightBlock(iRect.Right, top, bottom, iFrom + 1);
+        var rightBlock = GetRightBlock(iRect.Right, top, bottom, iFrom);
 
         Point? result = null;
         // check if searchRect 's width is fit to  virtual rect 's width (= rightBlock.Left - iRect.Right)
@@ -99,7 +100,7 @@ public class FitRect {
     private int GetBottomBlock(RectExt rect) {
         for (var i = rect.IndexTop; i < _total; ++i) {
             var checkRect = _topSortList[i];
-            if (rect.Bottom <= checkRect.Top &&
+            if (checkRect.Top <= rect.Bottom &&
                 checkRect.Left <= rect.Right && rect.Right < checkRect.Right)
                 return checkRect.Top;
         }
@@ -121,15 +122,16 @@ public class FitRect {
     public static void Test() {
         // gen random rec
         const int max = 100;
-        var rects = Enumerable.Range(1, 10)
-            .Select(_ => new Rectangle(
-                    Random.Shared.Next(max),
-                    Random.Shared.Next(max),
-                    Random.Shared.Next(max / 4),
-                    Random.Shared.Next(max / 4)
-                )
-            )
+        var rects = new List<Rectangle> {
+                new(0, 7, 4, 2),
+                new(4, 10, 4, 2),
+                new(6, 5, 3, 4),
+                new(2, 3, 1, 4)
+            }
             .ToList();
-        var fitRect = new FitRect(rects, 100, 100);
+        var fitRect = new FitRect(rects, 10, 10);
+        var searchRect = new Rectangle(0, 0, 1, 10);
+        var point = fitRect.Find(searchRect);
+        Console.WriteLine(point);
     }
 }
