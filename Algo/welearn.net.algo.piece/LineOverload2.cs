@@ -3,7 +3,7 @@ namespace welearn.net.algo.piece;
 // simple and beautiful solution from a Dung (Head)
 internal class ResourceLoading {
     public static void Main() {
-        void Problem(List<Segment> segments)
+        void Problem2(List<Segment> segments)
         {
             List<PPoint> pPoints = new List<PPoint>();
 
@@ -28,6 +28,20 @@ internal class ResourceLoading {
             for (int i=0;i<sortedPPoints.Count-1;i++) {
                 if (sortedPPoints[i].x == sortedPPoints[i + 1].x) continue;
                 Console.WriteLine("{0} -> {1}: {2}", sortedPPoints[i].x, sortedPPoints[i+1].x, sortedPPoints[i].getWeight());
+            }
+        }
+
+        void Problem(List<Segment> segments) {
+            var points = segments.SelectMany(s => new PPoint[] {
+                    new(s.start), new(s.end)
+                })
+                .OrderBy(p => p.x)
+                .ToArray();
+
+            for (var i = 0; i < points.Length - 1; ++i) {
+                if (points[i].x == points[i + 1].x) continue;
+                var weight = segments.Count(s => s.HasPass(points[i].x));
+                Console.WriteLine($"{points[i].x} -> {points[i + 1].x}: {weight}");
             }
         }
 
@@ -110,4 +124,6 @@ class Segment
     {
         return (x > start) && (x < end);
     }
+
+    public bool HasPass(double x) => start <= x & x < end;
 }
