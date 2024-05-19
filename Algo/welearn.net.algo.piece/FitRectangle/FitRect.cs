@@ -9,19 +9,17 @@ public class FitRect {
     private List<RectExt> _topSortList = null!;
     private List<RectExt> _bottomSortList = null!;
 
-    private readonly int _topBoundary;
-    private readonly int _rightBoundary;
+    private readonly Size _boundary;
     private readonly int _total;
-    private Rectangle _searchRect = null!;
+    private Size _searchRect;
 
-    public FitRect(List<Rectangle> rectangles, int topBoundary, int rightBoundary) {
-        _topBoundary = topBoundary;
-        _rightBoundary = rightBoundary;
+    public FitRect(List<Rectangle> rectangles, Size boundary) {
+        _boundary = boundary;
         _total = rectangles.Count;
         Preparation(rectangles);
     }
 
-    public Point? Find(Rectangle searchRect) {
+    public Point? Find(Size searchRect) {
         _searchRect = searchRect;
 
         foreach (var iRect in _rightSortList) {
@@ -75,7 +73,7 @@ public class FitRect {
             .ForEach((r, i) => r.IndexBottom = i)
             .ToList();
 
-        var dummyFirstRect = new RectExt(0, _topBoundary, 0, _topBoundary) {
+        var dummyFirstRect = new RectExt(0, _boundary.Height, 0, _boundary.Height) {
             IndexBottom = _total,
             IndexTop = _total
         };
@@ -94,7 +92,7 @@ public class FitRect {
                 return checkRect.Bottom;
         }
 
-        return _topBoundary;
+        return _boundary.Height;
     }
 
     private int GetBottomBlock(RectExt rect) {
@@ -116,22 +114,6 @@ public class FitRect {
                 return checkRect;
         }
         // reach to wall
-        return new Rectangle(_rightBoundary, _topBoundary, 0, _topBoundary);
-    }
-
-    public static void Test() {
-        // gen random rec
-        const int max = 100;
-        var rects = new List<Rectangle> {
-                new(0, 7, 4, 2),
-                new(4, 10, 4, 2),
-                new(6, 5, 3, 4),
-                new(2, 3, 1, 4)
-            }
-            .ToList();
-        var fitRect = new FitRect(rects, 10, 10);
-        var searchRect = new Rectangle(0, 0, 1, 10);
-        var point = fitRect.Find(searchRect);
-        Console.WriteLine(point);
+        return new Rectangle(_boundary.Width, _boundary.Height, 0, _boundary.Height);
     }
 }

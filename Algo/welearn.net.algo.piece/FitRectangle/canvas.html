@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>HTML5 Canvas</h1>
+
+<canvas id="myCanvas" width="550" height="550" style="border:0px solid grey"></canvas>
+
+<script>
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+    ctx.translate(20.5, 20.5);
+
+    ctx.font = "18px san-serif";
+    drawAxis();
+    ctx.translate(-20.5, -20.5);
+
+    // ctx.transform(1, 0, 0, -1, 0, canvas.height);
+    ctx.scale(1, -1);
+    ctx.translate(0, -canvas.height);
+
+    ctx.translate(20, 30);
+
+    ctx.scale(50, 50);
+
+    ctx.globalAlpha = 0.3;
+    drawRect("0 7 4 2");
+    drawRect("4 10 4 2");
+    drawRect("6 5 3 4");
+    drawRect("2 4 1 4");
+    drawRect("3 4 2 1");
+    drawRect("6 8 4 2");
+
+    function drawAxis() {
+        ctx.save();
+        ctx.setLineDash([1, 4])
+        ctx.lineWidth = 1;
+        let size = canvas.height - 50;
+        for (let i = 0; i < 11; ++i) {
+            let y = i * size / 10;
+
+            ctx.translate(-20, 5);
+            ctx.fillText(10 - i, 0, y);
+            ctx.translate(20, -5);
+
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(size, y);
+            ctx.stroke();
+
+
+            ctx.translate(-5, 20);
+            ctx.fillText(i, y, size);
+            ctx.translate(5, -20);
+
+            ctx.beginPath();
+            ctx.moveTo(y, size);
+            ctx.lineTo(y, 0);
+            ctx.stroke();
+        }
+        ctx.restore();
+    }
+
+    function drawRect(x, y, w, h) {
+        if (y === undefined) {
+            let p = x.split(' ');
+            [x, y, w, h] = [p[0], p[1], p[2], p[3]];
+        }
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(1, -1);
+        ctx.fillRect(0, 0, w, h);
+        ctx.restore();
+    }
+</script>
+
+</body>
+</html>
