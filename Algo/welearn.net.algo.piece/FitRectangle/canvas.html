@@ -8,21 +8,16 @@
 <script>
     const canvas = document.getElementById("myCanvas");
     const ctx = canvas.getContext("2d");
-
-    ctx.translate(20.5, 20.5);
-
-    ctx.font = "18px san-serif";
-    drawAxis();
-    ctx.translate(-20.5, -20.5);
-
-    // ctx.transform(1, 0, 0, -1, 0, canvas.height);
+    // Cartesian coordinate system
     ctx.scale(1, -1);
     ctx.translate(0, -canvas.height);
+    // margin
+    ctx.translate(20.5, 20.5);
 
-    ctx.translate(20, 30);
+    drawAxis();
+    drawAxisNumber();
 
     ctx.scale(50, 50);
-
     ctx.globalAlpha = 0.3;
     drawRect("0 7 4 2");
     drawRect("4 10 4 2");
@@ -31,31 +26,50 @@
     drawRect("3 4 2 1");
     drawRect("6 8 4 2");
 
+    function drawAxisNumber() {
+        ctx.save();
+        // ctx.scale(1, -1);
+        // ctx.translate(-5, 20);
+        ctx.transform(1, 0, 0, -1, -5, -20);
+
+        // draw number horizontal
+        ctx.font = "18px san-serif";
+        let size = canvas.height - 50;
+        for (let i = 0; i < 11; ++i) {
+            let x = i * size / 10;
+            ctx.fillText(i, x, 0);
+        }
+
+        // draw number vertical
+        ctx.translate(-15, -15);
+        for (let i = 0; i < 11; ++i) {
+            let x = i * size / 10;
+            ctx.fillText(i, 0, -x);
+        }
+        ctx.restore();
+    }
+
     function drawAxis() {
         ctx.save();
+        ctx.globalAlpha = 0.5;
         ctx.setLineDash([1, 4])
         ctx.lineWidth = 1;
+
         let size = canvas.height - 50;
+
         for (let i = 0; i < 11; ++i) {
             let y = i * size / 10;
 
-            ctx.translate(-20, 5);
-            ctx.fillText(10 - i, 0, y);
-            ctx.translate(20, -5);
-
+            // draw horizontal line
             ctx.beginPath();
             ctx.moveTo(0, y);
             ctx.lineTo(size, y);
             ctx.stroke();
 
-
-            ctx.translate(-5, 20);
-            ctx.fillText(i, y, size);
-            ctx.translate(5, -20);
-
+            // draw vertical line
             ctx.beginPath();
-            ctx.moveTo(y, size);
-            ctx.lineTo(y, 0);
+            ctx.moveTo(y, 0);
+            ctx.lineTo(y, size);
             ctx.stroke();
         }
         ctx.restore();
