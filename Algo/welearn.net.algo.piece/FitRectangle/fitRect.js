@@ -3,19 +3,19 @@
 class FitRect {
   constructor(rectangles, boundary) {
     [this.boundary, this.total] = [boundary, rectangles.length];
-    Preparation(rectangles);
+    this.Preparation(rectangles);
   }
 
   Find(searchRect) {
     this.searchRect = searchRect;
 
-    this.rightSortList.forEach(iRect => {
+    for (const iRect of this.rightSortList) {
       // determine high/low boundary to form a virtual rectangle with height = topBlock - bottomBlock
       let [topBlock, bottomBlock] = [this.GetTopBlock(iRect), this.GetBottomBlock(iRect)];
       // search in boundary
       let point = this.FindInBoundary(iRect, topBlock, bottomBlock, iRect.IndexLeft);
       if (point != null) return point;
-    });
+    }
 
     return null;
   }
@@ -55,6 +55,7 @@ class FitRect {
     this.bottomSortList.forEach((r, i) => r.IndexBottom = i);
 
     let dummyFirstRect = new Rectangle(0, this.boundary.Height, 0, this.boundary.Height);
+    dummyFirstRect.IndexLeft = 0;
     dummyFirstRect.IndexBottom = dummyFirstRect.IndexTop = this.total;
 
     this.rightSortList = rectangles.toSorted((r1, r2) => r1.Right - r2.Right);
@@ -62,7 +63,7 @@ class FitRect {
   }
 
   GetTopBlock(rect) {
-    for (let i = rect.IndexBottom; i < _total; ++i) {
+    for (let i = rect.IndexBottom; i < this.total; ++i) {
       let checkRect = this.bottomSortList[i];
       if (rect.Top <= checkRect.Bottom &&
         checkRect.Left <= rect.Right && rect.Right < checkRect.Right)
@@ -73,7 +74,7 @@ class FitRect {
   }
 
   GetBottomBlock(rect) {
-    for (let i = rect.IndexTop; i < _total; ++i) {
+    for (let i = rect.IndexTop; i < this.total; ++i) {
       let checkRect = this.topSortList[i];
       if (checkRect.Top <= rect.Bottom &&
         checkRect.Left <= rect.Right && rect.Right < checkRect.Right)
@@ -84,7 +85,7 @@ class FitRect {
   }
 
   GetRightBlock(left, top, bottom, iFrom) {
-    for (let i = iFrom; i < _total; ++i) {
+    for (let i = iFrom; i < this.total; ++i) {
       let checkRect = this.leftSortList[i];
       if (left <= checkRect.Left &&
         bottom < checkRect.Top && checkRect.Bottom < top)
