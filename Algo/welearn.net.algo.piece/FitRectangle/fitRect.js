@@ -1,34 +1,37 @@
 "use strict";
 
 class FitRect {
-  constructor(rectangles, boundary) {
-    [this.boundary, this.total] = [boundary, rectangles.length];
+  constructor(ctx, rectangles, boundary) {
+    [this.ctx, this.boundary, this.total] = [ctx, boundary, rectangles.length];
     this.Preparation(rectangles);
   }
 
-  Find(searchRect) {
+  async Find(searchRect) {
     this.searchRect = searchRect;
 
     for (const iRect of this.rightSortList) {
       // determine high/low boundary to form a virtual rectangle with height = topBlock - bottomBlock
       let [topBlock, bottomBlock] = [this.GetTopBlock(iRect), this.GetBottomBlock(iRect)];
       // search in boundary
-      let point = this.FindInBoundary(iRect, topBlock, bottomBlock, iRect.IndexLeft);
+      let point = await this.FindInBoundary(iRect, topBlock, bottomBlock, iRect.IndexLeft);
       if (point != null) return point;
     }
 
     return null;
   }
 
-  FindInBoundary(iRect, top, bottom, iFrom) {
+  async FindInBoundary(iRect, top, bottom, iFrom) {
     // check if searchRect 's height is fit to virtual rect 's height
     if (top - bottom < this.searchRect.Height) return null;
     // find next block to the right
     let rightBlock = this.GetRightBlock(iRect.Right, top, bottom, iFrom);
 
+    // highlight zone
+    let rectZone = new Rectangle(iRect.Right, top, rightBlock.Left - iRect.Right, top - bottom);
+    await drawBlinkRectAsync(this.ctx, rectZone);
     let result = null;
     // check if searchRect 's width is fit to  virtual rect 's width (= rightBlock.Left - iRect.Right)
-    if (this.searchRect.Width <= rightBlock.Left - iRect.Right)
+    if (this.searchRect.Width <= rectZone.Width)
       // found
       result = new Rectangle(iRect.Right, top, this.searchRect.Width, this.searchRect.Height);
 

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
+<script src="canvas.js"></script>
+<script src="utils.js"></script>
 <script src="fitRect.js"></script>
 <script src="model.js"></script>
-<style type="text/css">
+<style>
     canvas {
         position: absolute;
     }
 </style>
-<body>
+<body onload="init()">
 <h1>HTML5 Canvas</h1>
 
 <div style="position: relative;">
@@ -16,130 +18,27 @@
 </div>
 
 <script>
-  let ctx = setupCanvas("myCanvas");
-  let ctxForeground = setupCanvasForeground("myCanvasForeground");
+    async function init() {
+      let ctx = setupCanvas("myCanvas");
+      let ctxForeground = setupCanvasForeground(ctx, "myCanvasForeground");
 
-  let rects = loadRectStrings([
-    "0 7 4 2",
-    "4 10 4 2",
-    "6 5 3 4",
-    "2 4 1 4",
-    "3 4 2 1",
-    "6 8 4 2"
-  ]);
+      let rects = loadRectStrings([
+        "0 7 4 2",
+        "4 10 4 2",
+        "6 5 3 4",
+        "2 4 1 4",
+        "3 4 2 1",
+        "6 8 4 2"
+      ]);
 
-  rects.forEach(r => drawRect(ctx, r));
+      rects.forEach(r => drawRect(ctx, r));
 
-  let fitRect = new FitRect(rects, {Width: 10, Height: 10});
-  let rectFound = fitRect.Find({Width: 1, Height: 8});
-  if (rectFound) { drawRectFound(rectFound); }
-
-  function setupCanvas() {
-    const canvas = document.getElementById("myCanvas");
-    const ctx = canvas.getContext("2d");
-    // Cartesian coordinate system
-    ctx.scale(1, -1);
-    ctx.translate(0, -canvas.height);
-    // margin
-    ctx.translate(20.5, 20.5);
-
-    drawAxis(ctx);
-    drawAxisNumber(ctx);
-
-    ctx.scale(50, 50);
-
-    return ctx;
-  }
-
-  function setupCanvasForeground() {
-    const ctxForeground = document.getElementById("myCanvasForeground").getContext("2d");
-    ctxForeground.setTransform(ctx.getTransform());
-    return ctxForeground;
-  }
-
-  function clearAll(context) {
-    context.save();
-    // Use the identity matrix while clearing the canvas
-    context.setTransform(1, 0, 0, 1, 0, 0);
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-    // Restore the transform
-    context.restore();
-  }
-  
-  function drawRectFound(rectFound) {
-    clearAll(ctxForeground);
-    ctxForeground.fillStyle = "red";
-
-    drawRect(ctxForeground, rectFound);
-  }
-
-  function loadRectStrings(str) {
-    return str.map(s => new Rectangle(...(s.split(' '))))
-  }
-
-  function drawAxisNumber(ctx) {
-    ctx.save();
-    // ctx.scale(1, -1);
-    // ctx.translate(-5, 20);
-    ctx.transform(1, 0, 0, -1, -5, -20);
-
-    // draw number horizontal
-    ctx.font = "18px san-serif";
-    let size = ctx.canvas.height - 50;
-    for (let i = 0; i < 11; ++i) {
-      let x = i * size / 10;
-      ctx.fillText(i, x, 0);
+      let fitRect = new FitRect(ctxForeground, rects, {Width: 10, Height: 10});
+      let rectFound = await fitRect.Find({Width: 7, Height: 1});
+      if (rectFound) {
+        drawRectFound(ctxForeground, rectFound);
+      }
     }
-
-    // draw number vertical
-    ctx.translate(-15, -15);
-    for (let i = 0; i < 11; ++i) {
-      let x = i * size / 10;
-      ctx.fillText(i, 0, -x);
-    }
-    ctx.restore();
-  }
-
-  function drawAxis(ctx) {
-    ctx.save();
-    ctx.globalAlpha = 0.5;
-    ctx.setLineDash([1, 4])
-    ctx.lineWidth = 1;
-
-    let size = ctx.canvas.height - 50;
-
-    for (let i = 0; i < 11; ++i) {
-      let y = i * size / 10;
-
-      // draw horizontal line
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(size, y);
-      ctx.stroke();
-
-      // draw vertical line
-      ctx.beginPath();
-      ctx.moveTo(y, 0);
-      ctx.lineTo(y, size);
-      ctx.stroke();
-    }
-    ctx.restore();
-  }
-
-  function drawRect(ctx, x, y, w, h) {
-    if (typeof (x) == 'object') {
-      [x, y, w, h] = [x.Left, x.Top, x.Width, x.Height];
-    } else if (y === undefined) {
-      let p = x.split(' ');
-      [x, y, w, h] = [p[0], p[1], p[2], p[3]];
-    }
-    ctx.save();
-    ctx.globalAlpha = 0.3;
-    ctx.translate(x, y);
-    ctx.scale(1, -1);
-    ctx.fillRect(0, 0, w, h);
-    ctx.restore();
-  }
 </script>
 
 </body>
