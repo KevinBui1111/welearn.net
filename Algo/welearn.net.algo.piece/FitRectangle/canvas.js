@@ -1,7 +1,7 @@
 "use strict";
 
-function setupCanvas() {
-  const canvas = document.getElementById("myCanvas");
+function setupCanvas(name, wUnit, hUnit) {
+  const canvas = document.getElementById(name);
   const ctx = canvas.getContext("2d");
   // Cartesian coordinate system
   ctx.scale(1, -1);
@@ -9,16 +9,17 @@ function setupCanvas() {
   // margin
   ctx.translate(20.5, 20.5);
 
-  drawAxis(ctx);
-  drawAxisNumber(ctx);
+  let [w, h] = [canvas.width - 50, canvas.height - 50];
+  drawAxis(ctx, wUnit, hUnit, w, h);
+  drawAxisNumber(ctx, wUnit, hUnit, w, h);
 
-  ctx.scale(50, 50);
+  ctx.scale(w / wUnit, h / hUnit);
 
   return ctx;
 }
 
-function setupCanvasForeground(ctx) {
-  const ctxForeground = document.getElementById("myCanvasForeground").getContext("2d");
+function setupCanvasForeground(name, ctx) {
+  const ctxForeground = document.getElementById(name).getContext("2d");
   ctxForeground.setTransform(ctx.getTransform());
   return ctxForeground;
 }
@@ -49,7 +50,7 @@ function loadRectStrings(str) {
   return str.map(s => new Rectangle(...(s.split(' '))))
 }
 
-function drawAxisNumber(ctx) {
+function drawAxisNumber(ctx, wUnit, hUnit, w, h) {
   ctx.save();
   // ctx.scale(1, -1);
   // ctx.translate(-5, 20);
@@ -57,44 +58,44 @@ function drawAxisNumber(ctx) {
 
   // draw number horizontal
   ctx.font = "18px san-serif";
-  let size = ctx.canvas.height - 50;
-  for (let i = 0; i < 11; ++i) {
-    let x = i * size / 10;
+  for (let i = 0; i <= w; ++i) {
+    let x = i * w / wUnit;
     ctx.fillText(i, x, 0);
   }
 
   // draw number vertical
   ctx.translate(-15, -15);
-  for (let i = 0; i < 11; ++i) {
-    let x = i * size / 10;
+  for (let i = 0; i <= h; ++i) {
+    let x = i * h / hUnit;
     ctx.fillText(i, 0, -x);
   }
   ctx.restore();
 }
 
-function drawAxis(ctx) {
+function drawAxis(ctx, wUnit, hUnit, w, h) {
   ctx.save();
   ctx.globalAlpha = 0.5;
   ctx.setLineDash([1, 4])
   ctx.lineWidth = 1;
-
-  let size = ctx.canvas.height - 50;
-
-  for (let i = 0; i < 11; ++i) {
-    let y = i * size / 10;
+  
+  [...Array(h + 1)].forEach((_, i) => {
+    let y = i * h / hUnit;
 
     // draw horizontal line
     ctx.beginPath();
     ctx.moveTo(0, y);
-    ctx.lineTo(size, y);
+    ctx.lineTo(w, y);
     ctx.stroke();
+  });
 
+  [...Array(w + 1)].forEach((_, i) => {
+    let y = i * w / wUnit;
     // draw vertical line
     ctx.beginPath();
     ctx.moveTo(y, 0);
-    ctx.lineTo(y, size);
+    ctx.lineTo(y, h);
     ctx.stroke();
-  }
+  });
   ctx.restore();
 }
 
@@ -114,11 +115,15 @@ function drawRect(ctx, x, y, w, h) {
 }
 
 async function drawBlinkRectAsync(ctx, rect) {
+  if (!rect.Width) return;
+
+  clearAll(ctx);
   ctx.fillStyle = "yellow";
-  for (let i = 0; i < 5; ++i) {
+  for (let i = 0; i < 1; ++i) {
     drawRect(ctx, rect);
-    await sleep(200);
+    await sleep(400);
     clearAll(ctx);
+    await sleep(100);
   }
   drawRect(ctx, rect);
 }

@@ -10,17 +10,17 @@
     }
 </style>
 <body onload="init()">
-<h1>HTML5 Canvas</h1>
+<h3>HTML5 Canvas</h3>
 
 <div style="position: relative;">
-    <canvas id="myCanvas" width="550" height="550" style="border:0px solid grey"></canvas>
-    <canvas id="myCanvasForeground" width="550" height="550"></canvas>
+    <canvas id="myCanvas" width="950" height="550" style="border:0px solid grey"></canvas>
+    <canvas id="myCanvasForeground" width="950" height="950"></canvas>
 </div>
 
 <script>
     async function init() {
-      let ctx = setupCanvas("myCanvas");
-      let ctxForeground = setupCanvasForeground(ctx, "myCanvasForeground");
+      let ctx = setupCanvas("myCanvas", 15, 10);
+      let ctxForeground = setupCanvasForeground("myCanvasForeground", ctx);
 
       let rects = loadRectStrings([
         "0 7 4 2",

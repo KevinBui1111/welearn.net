@@ -38,11 +38,11 @@ class FitRect {
     // right block split virtual rectangle into two part
     // check if partAbove is totally above iRect, then not process
     if (rightBlock.Top < iRect.Top)
-      result = this.FindInBoundary(iRect, top, rightBlock.Top, iFrom + 1);
+      result = await this.FindInBoundary(iRect, top, rightBlock.Top, iFrom + 1);
 
     // check if partBelow is totally below iRect, then not process
     if (result == null && iRect.Bottom < rightBlock.Bottom)
-      result = this.FindInBoundary(iRect, rightBlock.Bottom, bottom, iFrom + 1);
+      result = await this.FindInBoundary(iRect, rightBlock.Bottom, bottom, iFrom + 1);
 
     return result;
   }
