@@ -30,11 +30,11 @@ class FitRect {
     // check if searchRect 's width is fit to  virtual rect 's width (= rightBlock.Left - iRect.Right)
     if (this.searchRect.Width <= rightBlock.Left - iRect.Right)
       // found
-      result = {X: iRect.Right, Y: top};
+      result = new Rectangle(iRect.Right, top, this.searchRect.Width, this.searchRect.Height);
 
     // right block split virtual rectangle into two part
     // check if partAbove is totally above iRect, then not process
-    if (result == null && rightBlock.Top < iRect.Top)
+    if (rightBlock.Top < iRect.Top)
       result = this.FindInBoundary(iRect, top, rightBlock.Top, iFrom + 1);
 
     // check if partBelow is totally below iRect, then not process
