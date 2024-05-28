@@ -13,6 +13,7 @@ internal static class Simple {
     //                    00:55, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
     //                    00:53, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
     //                    00:52, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
+    //                    00:52, core i5 - 1335U up to 4.6GHz
     //                    00:47, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz
     public static long TotalSin(long bound) {
         long total = 0;
@@ -42,7 +43,8 @@ internal static class Simple {
     //                    09.77s, core i7 - 10850H 2.7GHhz
     //                    10.48s, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
     //                    06.44s, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
-    //                    09:18s, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
+    //                    09.18s, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
+    //                    08.88s, core i5 - 1335U up to 4.6GHz
     //                    05.01s, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz
     public static long totalSinParallel_Task(long bound) {
         int threadCount = Environment.ProcessorCount;

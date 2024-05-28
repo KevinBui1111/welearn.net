@@ -172,6 +172,7 @@ public static class Prime
     //      1:14, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
     //      1:14, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
     //      1:11, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
+    //      1:07, core i5 - 1335U up to 4.6GHz
     //      1:16, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz
     public static long NthPrime(int n)
     {
@@ -228,6 +229,7 @@ public static class Prime
     ///                 1:15, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
     ///                 1:12, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
     ///                 1:10, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
+    ///                 1:07, core i5 - 1335U up to 4.6GHz
     ///                 1:21, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz
     /// </summary>
     public static (long count, long last) HowMany(long bound) {
@@ -262,6 +264,7 @@ public static class Prime
     ///                 19.0, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
     ///                 12.4, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
     ///                 16.4, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
+    ///                 15.9, core i5 - 1335U up to 4.6GHz
     ///                 10.6, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz
     /// </summary>
     public static (long count, long last) HowManyParallel(long bound) {
