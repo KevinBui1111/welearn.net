@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<script src="canvas.js"></script>
+<script src="utils.js"></script>
+<script src="fitRect.js"></script>
+<script src="model.js"></script>
+<style>
+    canvas {
+        position: absolute;
+    }
+</style>
+<body onload="init()">
+<h3>HTML5 Canvas</h3>
+
+<div style="position: relative;">
+    <canvas id="myCanvas" width="950" height="550" style="border:0px solid grey"></canvas>
+    <canvas id="myCanvasForeground" width="950" height="950"></canvas>
+</div>
+
+<script>
+    async function init() {
+      let ctx = setupCanvas("myCanvas", 15, 10);
+      let ctxForeground = setupCanvasForeground("myCanvasForeground", ctx);
+
+      let rects = loadRectStrings([
+        "0 7 4 2",
+        "4 10 4 2",
+        "6 5 3 4",
+        "2 4 1 4",
+        "3 4 2 1",
+        "6 8 4 2"
+      ]);
+
+      rects.forEach(r => drawRect(ctx, r));
+
+      let fitRect = new FitRect(ctxForeground, rects, {Width: 10, Height: 10});
+      let rectFound = await fitRect.Find({Width: 7, Height: 1});
+      if (rectFound) {
+        drawRectFound(ctxForeground, rectFound);
+      }
+    }
+</script>
+
+</body>
+</html>
