@@ -51,7 +51,7 @@ public class FitRectTest {
 
             try {
                 Assert.Equal(expected, point);}
-            catch (AssertActualExpectedException e) {
+            catch (EqualException e) {
                 Console.WriteLine(e.Message);
 
                 Console.WriteLine();

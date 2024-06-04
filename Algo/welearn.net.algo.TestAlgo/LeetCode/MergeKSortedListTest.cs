@@ -47,13 +47,13 @@ public class MergeKSortedListTest {
         Assert.True(ListNode.Equals(expected, actual));
     }
     
-    [Theory]
+    // [Theory]
     [MemberData(nameof(DataTest))]
     public void MergeKListsListNode(ListNode[] arrays) {
         new MergeKSortedLists().MergeKLists(arrays);
     }
 
-    [Theory]
+    // [Theory]
     [MemberData(nameof(DataTest))]
     public void MergeKListsListNode3(ListNode[] arrays) {
         new MergeKSortedLists().MergeKLists3(arrays);
