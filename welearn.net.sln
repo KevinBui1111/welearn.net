@@ -36,6 +36,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.play.Doodle", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.play.interview", "Play\welearn.net.play.interview\welearn.net.play.interview.csproj", "{45FE2CBE-B838-4C94-B7D4-5401DAB0A7FF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LangVersion", "LangVersion", "{8C0B3BB5-0449-497D-BA8C-4EB1AC1FA665}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LangVersion31", "Learn\LangVersion31\LangVersion31.csproj", "{9EB11D6C-B812-4A4D-A156-469410A9CE35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +60,8 @@ Global
 		{31569635-7A9F-4E96-A06A-9CA84D2A11C2} = {0736F652-351B-4DD3-9C5B-D808EC2BAEE1}
 		{4C98C8F1-2C77-4FF9-8CFE-C41715A6776F} = {C4D4ED22-14EC-49ED-94B0-FA9E2647EA85}
 		{45FE2CBE-B838-4C94-B7D4-5401DAB0A7FF} = {C4D4ED22-14EC-49ED-94B0-FA9E2647EA85}
+		{8C0B3BB5-0449-497D-BA8C-4EB1AC1FA665} = {0736F652-351B-4DD3-9C5B-D808EC2BAEE1}
+		{9EB11D6C-B812-4A4D-A156-469410A9CE35} = {8C0B3BB5-0449-497D-BA8C-4EB1AC1FA665}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{51F6E0FA-803A-44F7-9CD0-32F8B31A6897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -114,5 +120,9 @@ Global
 		{45FE2CBE-B838-4C94-B7D4-5401DAB0A7FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45FE2CBE-B838-4C94-B7D4-5401DAB0A7FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45FE2CBE-B838-4C94-B7D4-5401DAB0A7FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EB11D6C-B812-4A4D-A156-469410A9CE35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EB11D6C-B812-4A4D-A156-469410A9CE35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EB11D6C-B812-4A4D-A156-469410A9CE35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EB11D6C-B812-4A4D-A156-469410A9CE35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
