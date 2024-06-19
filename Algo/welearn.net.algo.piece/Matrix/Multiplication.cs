@@ -20,4 +20,25 @@ public class Multiplication {
             return res;
         }
     }
+    
+    public static int[,] Multiply_Parallel(int[,] matrixA, int[,] matrixB) {
+        var resRow = matrixA.GetLength(0);
+        var resCol = matrixB.GetLength(1);
+        var resMatrix = new int[resRow, resCol];
+
+        Parallel.For(0, resRow * resCol, i => {
+            var (r, c) = (i / resCol, i % resCol);
+            resMatrix[r, c] = CalcRc(r, c);
+        });
+
+        return resMatrix;
+        
+        int CalcRc(int r, int c) {
+            var res = 0;
+            for (var i = 0; i < resCol; i++)
+                res += matrixA[r, i] * matrixB[i, c];
+
+            return res;
+        }
+    }
 }
