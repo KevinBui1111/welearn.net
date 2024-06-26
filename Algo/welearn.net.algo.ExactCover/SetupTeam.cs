@@ -96,8 +96,8 @@ public class SetupTeam {
             [2, 3, 6, 7],
             [2, 7]
         ]);
-        successTeams.ForEach(t => t.PrintConsole());
-        Console.WriteLine("done");
+        // successTeams.ForEach(t => t.PrintConsole());
+        // Console.WriteLine("done");
         
         successTeams = FindTeam(9, [
             [3, 6, 7, 9],
@@ -111,7 +111,22 @@ public class SetupTeam {
             [2, 8],
             [7, 8],
         ]);
-        successTeams.ForEach(t => t.PrintConsole());
-        Console.WriteLine("done");
+        // successTeams.ForEach(t => t.PrintConsole());
+        // Console.WriteLine("done");
+    }
+    
+    public static List<int[]> TestBm() {
+        return FindTeam(9, [
+            [3, 6, 7, 9],
+            [9],
+            [1, 4, 7],
+            [4, 5, 8],
+            [1, 2],
+            [3, 5, 6],
+            [3, 4, 9],
+            [5, 6],
+            [2, 8],
+            [7, 8],
+        ]);
     }
 }
