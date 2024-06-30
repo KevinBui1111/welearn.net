@@ -6,15 +6,14 @@ namespace welearn.net.algo.ExactCover;
 Knuth's Algorithm X, exact cover problem
 */
 public class SetupTeamV2 {
-    public static List<int[]> FindTeam(int n, int[][] candidates) {
-        var matrix = new int[candidates.Length, n];
-
+    public static Head FormDancingLink(int n, int[][] candidates) {
         var headColumnNodes = new Head[n + 1];
         var lastColumnNodes = new Node[n + 1];
-        var head = lastColumnNodes[0] = headColumnNodes[0] = new Head();
-        var prev = head;
+        var head = headColumnNodes[0] =  new Head();
+        var prev = lastColumnNodes[0] = head;
+
         for (var i = 1; i < n + 1; ++i) {
-            var current = new Head { Left = prev };
+            var current = new Head { Value = i, Left = prev };
             prev = prev.Right = lastColumnNodes[i] = headColumnNodes[i] = current;
         }
 
@@ -37,7 +36,12 @@ public class SetupTeamV2 {
             }
         }
 
-        return null;
+        return head;
+    }
+
+    public static List<int[]> FindTeam(int n, int[][] candidates) {
+        var head = FormDancingLink(n, candidates);
+        
         var skillsMark = new bool[n + 1];
         var candidatesMark = new bool[candidates.Length];
         var totalRemainingSkills = n;
@@ -91,7 +95,6 @@ public class SetupTeamV2 {
             return true;
         }
     }
-    
     
     
     public static void Test() {
