@@ -9,7 +9,7 @@ public class SetupTeamV2 {
     public static Head FormDancingLink(int n, int[][] candidates) {
         var headColumnNodes = new Head[n + 1];
         var lastColumnNodes = new Node[n + 1];
-        var head = headColumnNodes[0] =  new Head();
+        var head = headColumnNodes[0] = new Head { Count = int.MaxValue };
         var prev = lastColumnNodes[0] = head;
 
         for (var i = 1; i < n + 1; ++i) {
@@ -39,8 +39,23 @@ public class SetupTeamV2 {
         return head;
     }
 
+    // find skill that have lowest number appearance.
+    private static Head ChooseSkill(Head head) {
+        var selection = head;
+        var current = head;
+        while (current.Right != null) {
+            current = (Head)current.Right;
+            if (current.Count < selection.Count)
+                selection = current;
+        }
+
+        return selection;
+    }
+
     public static List<int[]> FindTeam(int n, int[][] candidates) {
         var head = FormDancingLink(n, candidates);
+        // find column with lowest number of skill
+        var chosenSkill = ChooseSkill(head);
         
         var skillsMark = new bool[n + 1];
         var candidatesMark = new bool[candidates.Length];
