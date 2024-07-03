@@ -30,7 +30,7 @@ public class SetupTeamV2 {
 
                 prev = current;
 
-                lastColumnNodes[skill] = lastColumnNodes[skill].Down = prev;
+                lastColumnNodes[skill] = lastColumnNodes[skill].Below = prev;
 
                 ++headColumnNodes[skill].Count;
             }
@@ -52,10 +52,51 @@ public class SetupTeamV2 {
         return selection;
     }
 
+    private static void Reduce(Node chosenCandidate) {
+        
+    }
+
+    private static void RemoveColumn(Node node) {
+        // remove rows from above node
+        var current = node.Above;
+        while (current is not Head) {
+            RemoveRow(current);
+            current = current!.Above;
+        }
+        // remove rows from below node
+        current = node.Below;
+        while (current != null) {
+            RemoveRow(current);
+            current = current.Below;
+        }
+        // remove this column
+        
+    }
+
+    private static void RemoveRow(Node? node) {
+        // remove left node
+        while (node != null) {
+            RemoveNodeVertical(node);
+            node = node.Left;
+        }
+        // remove right node
+        while (node != null) {
+            RemoveNodeVertical(node);
+            node = node.Right;
+        }
+    }
+
+    private static void RemoveNodeVertical(Node node) {
+        node.Above!.Below = node.Below;
+        if (node.Below != null) node.Below.Above = node.Above;
+    }
+
     public static List<int[]> FindTeam(int n, int[][] candidates) {
         var head = FormDancingLink(n, candidates);
         // find column with lowest number of skill
         var chosenSkill = ChooseSkill(head);
+        // chose candidate
+        // Include candidate in the partial solution.
         
         var skillsMark = new bool[n + 1];
         var candidatesMark = new bool[candidates.Length];

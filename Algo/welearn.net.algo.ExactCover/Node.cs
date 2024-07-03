@@ -5,7 +5,7 @@ public class Node {
     public Node? Left;
     public Node? Right;
     public Node? Above;
-    public Node? Down;
+    public Node? Below;
 }
 
 public class Head : Node {
