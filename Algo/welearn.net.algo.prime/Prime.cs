@@ -174,6 +174,7 @@ public static class Prime
     //      1:11, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
     //      1:07, core i5 - 1335U up to 4.6GHz
     //      1:16, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz
+    //      1:04, core i7 - 12800H up to 2.4GHz (ThinkPad P15v Gen 3)
     public static long NthPrime(int n)
     {
         // find prime up to MAX
@@ -230,7 +231,8 @@ public static class Prime
     ///                 1:12, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
     ///                 1:10, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
     ///                 1:07, core i5 - 1335U up to 4.6GHz
-    ///                 1:21, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz
+    ///                 1:21, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz (ThinkPad P16v Gen 1)
+    ///                 1:04, core i7 - 12800H up to 2.4GHz (ThinkPad P15v Gen 3)
     /// </summary>
     public static (long count, long last) HowMany(long bound) {
         int MAX_PART = 1_000_000;
@@ -265,7 +267,8 @@ public static class Prime
     ///                 12.4, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
     ///                 16.4, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
     ///                 15.9, core i5 - 1335U up to 4.6GHz
-    ///                 10.6, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz
+    ///                 10.6, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz (ThinkPad P16v Gen 1)
+    ///    	            10.1, core i7 - 12800H up to 2.4GHz (ThinkPad P15v Gen 3)
     /// </summary>
     public static (long count, long last) HowManyParallel(long bound) {
         int MAX_PART = 1_000_000;

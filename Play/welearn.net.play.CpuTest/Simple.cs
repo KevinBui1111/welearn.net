@@ -14,7 +14,8 @@ internal static class Simple {
     //                    00:53, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
     //                    00:52, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
     //                    00:52, core i5 - 1335U up to 4.6GHz
-    //                    00:47, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz
+    //                    00:47, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz (ThinkPad P16v Gen 1)
+    //     	              00:46, core i7 - 12800H up to 2.4GHz (ThinkPad P15v Gen 3)
     public static long TotalSin(long bound) {
         long total = 0;
         for (long i = 0; i < bound; i++)
@@ -45,7 +46,8 @@ internal static class Simple {
     //                    06.44s, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
     //                    09.18s, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
     //                    08.88s, core i5 - 1335U up to 4.6GHz
-    //                    05.01s, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz
+    //                    05.01s, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz (ThinkPad P16v Gen 1)
+    //     	              05.63s, core i7 - 12800H up to 2.4GHz (ThinkPad P15v Gen 3)
     public static long totalSinParallel_Task(long bound) {
         int threadCount = Environment.ProcessorCount;
         var parts = ListUtil.Distribute(0, bound, threadCount);
