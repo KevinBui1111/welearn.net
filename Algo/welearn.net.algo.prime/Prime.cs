@@ -166,15 +166,15 @@ public static class Prime
     // extend range to MAX_PART size each loop
     // find 50_847_534    nth prime in 5.5s, core i7 - 9850H 2.6GHhz
     // find 1_000_000_000 nth prime in
-    //      2:40.65, core i7 - 8550U 1.8 - 4.0 GHhz
-    //      1:56, core i7 - 9850H 2.6GHhz
-    //      1:26, core i7 - 10850H 2.7GHz
-    //      1:16, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz
+    //      2:40.65, core i7 - 8550U 1.8 - 4.0 GHhz (HP Probook 440 G5)
+    //      1:56, core i7 - 9850H 2.6GHhz (ThinkPad P53)
+    //      1:26, core i7 - 10850H 2.7GHz (ThinkPad P15 Gen 1)
+    //      1:16, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz (ThinkPad P16v Gen 1)
     //      1:14, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
     //      1:14, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
-    //      1:11, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
+    //      1:11, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz (ThinkPad T14 gen 3)
     //      1:07, core Ultra 7 165U 1.7GHz - 4.9GHz (ThinkPad T16 Gen 3)
-    //      1:07, core i5 - 1335U up to 4.6GHz
+    //      1:07, core i5 - 1335U up to 4.6GHz (ThinkBook 15 Gen 5)
     //      1:04, core i7 - 12800H up to 2.4GHz (ThinkPad P15v Gen 3)
     public static long NthPrime(int n)
     {
@@ -225,14 +225,14 @@ public static class Prime
     }
 
     // record: 23e9 in
-    //      1:44, core i7 - 9850H 2.6GHhz
-    //      1:57, core i7 - 8550U 1.8 - 4.0 GHhz
-    //      1:23, core i7 - 10850H 2.7GHz
+    //      1:44, core i7 - 9850H 2.6GHhz (ThinkPad P53)
+    //      1:57, core i7 - 8550U 1.8 - 4.0 GHhz (HP Probook 440 G5)
+    //      1:23, core i7 - 10850H 2.7GHz (ThinkPad P15 Gen 1)
     //      1:21, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz (ThinkPad P16v Gen 1)
     //      1:15, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
     //      1:12, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
-    //      1:10, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
-    //      1:07, core i5 - 1335U up to 4.6GHz
+    //      1:10, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz (ThinkPad T14 gen 3)
+    //      1:07, core i5 - 1335U up to 4.6GHz (ThinkBook 15 Gen 5)
     //      1:07, core Ultra 7 165U 1.7GHz - 4.9GHz (ThinkPad T16 Gen 3)
     //      1:04, core i7 - 12800H up to 2.4GHz (ThinkPad P15v Gen 3)
     public static (long count, long last) HowMany(long bound) {
@@ -261,12 +261,12 @@ public static class Prime
 
 
     // record: 23e9 in
-    //      50.4, core i7 - 8550U 1.8 - 4.0 GHhz
-    //      25.7s, core i7 - 9850H 2.6GHhz
-    //      17.8, core i7 - 10850H 2.7GHz
+    //      50.4, core i7 - 8550U 1.8 - 4.0 GHhz (HP Probook 440 G5)
+    //      25.7s, core i7 - 9850H 2.6GHhz (ThinkPad P53)
+    //      17.8, core i7 - 10850H 2.7GHz (ThinkPad P15 Gen 1)
     //      19.0, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
-    //      16.4, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
-    //      15.9, core i5 - 1335U up to 4.6GHz
+    //      16.4, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz (ThinkPad T14 gen 3)
+    //      15.9, core i5 - 1335U up to 4.6GHz (ThinkBook 15 Gen 5)
     //      14.9, core Ultra 7 165U 1.7GHz - 4.9GHz (ThinkPad T16 Gen 3)
     //      12.4, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
     //      10.6, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz (ThinkPad P16v Gen 1)

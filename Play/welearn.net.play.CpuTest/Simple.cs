@@ -5,17 +5,17 @@ namespace welearn.net.play.CpuTest;
 
 internal static class Simple {
     // record: bound 2e9,
-    //      37.7s, core i7 - 9850H 2.6GHhz
-    //      40.8s, core i7 - 8550U 1.8 - 4.0 GHhz
+    //      37.7s, core i7 - 9850H 2.6GHhz (ThinkPad P53)
+    //      40.8s, core i7 - 8550U 1.8 - 4.0 GHhz (HP Probook 440 G5)
     //      34.3s, core i7 - 10850H 2.7GHz
     //
     // bound 4e9,
-    //      01:16, core i7 - 9850H 2.6GHhz
-    //      01:08, core i7 - 10850H 2.7GHhz
+    //      01:16, core i7 - 9850H 2.6GHhz (ThinkPad P53)
+    //      01:08, core i7 - 10850H 2.7GHhz (ThinkPad P15 Gen 1)
     //      00:55, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
     //      00:53, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
-    //      00:52, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
-    //      00:52, core i5 - 1335U up to 4.6GHz
+    //      00:52, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz (ThinkPad T14 gen 3)
+    //      00:52, core i5 - 1335U up to 4.6GHz (ThinkBook 15 Gen 5)
     //      00:47, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz (ThinkPad P16v Gen 1)
     //      00:46, core Ultra 7 165U 1.7GHz - 4.9GHz (ThinkPad T16 Gen 3)
     //     	00:46, core i7 - 12800H up to 2.4GHz (ThinkPad P15v Gen 3)
@@ -27,7 +27,7 @@ internal static class Simple {
         return total;
     }
 
-    // record: bound 2e9, 07.62s, core i7 - 9850H 2.6GHhz
+    // record: bound 2e9, 07.62s, core i7 - 9850H 2.6GHhz (ThinkPad P53)
     public static long TotalSinParallel(long bound) {
         long total = 0;
         Parallel.For<long>(0, bound,
@@ -40,16 +40,16 @@ internal static class Simple {
     }
 
     // record: bound 2e9,
-    //      06.09s, core i7 - 9850H 2.6GHhz
-    //      10.25s, core i7 - 8550U 1.8 - 4.0 GHhz
-    //      04.91s, core i7 - 10850H 2.7GHz
+    //      06.09s, core i7 - 9850H 2.6GHhz (ThinkPad P53)
+    //      10.25s, core i7 - 8550U 1.8 - 4.0 GHhz (HP Probook 440 G5)
+    //      04.91s, core i7 - 10850H 2.7GHz (ThinkPad P15 Gen 1)
     //
     //         bound 4e9,
-    //      13.00s, core i7 - 9850H 2.6GHhz
+    //      13.00s, core i7 - 9850H 2.6GHhz (ThinkPad P53)
     //      10.48s, AMD Ryzen™ 7 PRO 5850U 1.9GHz - 4.4GHz
-    //      09.77s, core i7 - 10850H 2.7GHhz
-    //      09.18s, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz
-    //      08.88s, core i5 - 1335U up to 4.6GHz
+    //      09.77s, core i7 - 10850H 2.7GHhz (ThinkPad P15 Gen 1)
+    //      09.18s, AMD Ryzen™ 7 PRO 6850U 2.7GHz - 4.7GHz (ThinkPad T14 gen 3)
+    //      08.88s, core i5 - 1335U up to 4.6GHz (ThinkBook 15 Gen 5)
     //      08.74, core Ultra 7 165U 1.7GHz - 4.9GHz (ThinkPad T16 Gen 3)
     //      06.44s, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
     //     	05.63s, core i7 - 12800H up to 2.4GHz (ThinkPad P15v Gen 3)
