@@ -4,5 +4,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="welenet.LibB" Version="0.2" />
+
+    <None Include="Readme.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 </Project>
