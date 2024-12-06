@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="welenet.LibA" Version="1.*" />
-    <PackageReference Include="welenet.LibB" Version="0.1" />
+    <PackageReference Include="welenet.LibB" Version="0.3" />
   </ItemGroup>
 
 </Project>

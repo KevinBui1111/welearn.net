@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using welenet.LibA;
+using welenet.LibB;
 
 Console.WriteLine("Hello, World!");
 
@@ -11,8 +12,16 @@ Console.WriteLine("Hello, World!");
  */
 new ClassA().Bar();
 
-/* case 2: Direct dependency wins
+/* case 2.1: Direct dependency wins
  * VersionApp -> welenet.LibA 1.1.1 -> welenet.LibB (>= 0.2.0)
  * VersionApp -> welenet.LibB (>= 0.1.0)
  * Error NU1605 : Warning As Error: Detected package downgrade: welenet.LibB from 0.2.0 to 0.1.0.
+
+ * case 2.2: Direct dependency wins
+ * VersionApp -> welenet.LibA 1.1.1 -> welenet.LibB (>= 0.2.0)
+ * VersionApp -> welenet.LibB (>= 0.3.0)
+ * Build OK, choose welenet.LibB 0.3.0
+ * Runtime: System.MissingMethodException: Method not found: 'Void welenet.LibB.ClassB.Bar()'
  */
+
+new ClassA().ReferBxBar();

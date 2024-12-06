@@ -5,8 +5,8 @@ public class ClassB {
     public void Foo() {
         Console.WriteLine("ClassB.Foo");
     }
-    // 0.2
-    public void Bar() {
-        Console.WriteLine("ClassB.Bar");
-    }
+    // 0.2, remove Bar - 0.3
+    // public void Bar() {
+    //     Console.WriteLine("ClassB.Bar");
+    // }
 }
