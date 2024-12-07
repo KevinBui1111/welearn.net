@@ -6,4 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="welenet.LibC" Version="0.2" />
+  </ItemGroup>
 </Project>

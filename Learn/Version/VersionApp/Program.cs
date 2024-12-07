@@ -25,3 +25,12 @@ new ClassA().Bar();
  */
 
 new ClassA().ReferBxBar();
+
+/* case 2.3: Could not load file or assembly
+ * A 1.2 -> B 0.5 -> C 0.2
+ * B 0.4 -> C 0.1
+ * Error NU1605 : Warning As Error: Detected package downgrade
+ * -> add <NoWarn>NU1605</NoWarn>
+ * Runtime: System.IO.FileNotFoundException: Could not load file or assembly 'welenet.LibB, Version=0.5.0.0'
+*/
+new ClassA().ReferBxBar2();
