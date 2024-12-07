@@ -7,6 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="welenet.LibC" Version="0.2" />
+    <PackageReference Include="welenet.LibC" Version="0.3" />
   </ItemGroup>
 </Project>

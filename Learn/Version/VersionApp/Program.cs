@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using welenet.LibA;
-using welenet.LibB;
+using welenet.LibD;
 
 Console.WriteLine("Hello, World!");
 
@@ -34,3 +34,11 @@ new ClassA().ReferBxBar();
  * Runtime: System.IO.FileNotFoundException: Could not load file or assembly 'welenet.LibB, Version=0.5.0.0'
 */
 new ClassA().ReferBxBar2();
+
+/* case 3: Cousin dependencies:  NuGet uses the lowest version that satisfies all version requirements
+ * A 1.3 -> B 0.6 -> C 0.3 (>= 0.3)
+ * D 0.1 -> C 0.1 (>= 0.1)
+ * -> choose C 0.3
+ * Runtime: System.MissingMethodException: Method not found: 'Void welenet.LibC.ServiceC.Foo()
+ */
+new ClassD().ReferBxBar();

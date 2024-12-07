@@ -15,7 +15,7 @@ public class ClassB {
     // 0.4
     public void ReferCxFoo() {
         Console.WriteLine("ClassA.ReferBxBar");
-        new ServiceC().Foo();
+        new ServiceC().Foo2();
     }
     // 0.5
     public void ReferCxBar() {
