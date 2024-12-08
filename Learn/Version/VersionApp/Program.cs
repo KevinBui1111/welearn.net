@@ -42,3 +42,11 @@ new ClassA().ReferBxBar2();
  * Runtime: System.MissingMethodException: Method not found: 'Void welenet.LibC.ServiceC.Foo()
  */
 new ClassD().ReferBxBar();
+
+/* case 3.1: Cousin dependencies:  NuGet uses the lowest version that satisfies all version requirements
+ * A 1.4 -> B 0.8 -> C 0.2
+ * D 0.2 -> B 0.7 -> C 0.3 + E 0.1
+ * -> choose B 0.8, C 0.2 not load E 0.1
+ * Runtime: System.IO.FileNotFoundException: Could not load file or assembly 'welenet.LibE
+ */
+new ClassD().ReferBxReferExFoo();

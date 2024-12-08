@@ -1,4 +1,5 @@
 ﻿using welenet.LibC;
+// using welenet.LibE;
 
 namespace welenet.LibB;
 
@@ -15,11 +16,19 @@ public class ClassB {
     // 0.4
     public void ReferCxFoo() {
         Console.WriteLine("ClassA.ReferBxBar");
-        new ServiceC().Foo2();
+        //0.8
+        new ServiceC().Foo();
+        //0.6
+        // new ServiceC().Foo2();
     }
     // 0.5
     public void ReferCxBar() {
         Console.WriteLine("ClassC.ReferBxBar");
         new ServiceC().Bar();
+    }
+    // 0.7
+    public void ReferExFoo() {
+        Console.WriteLine("ClassB.Method07");
+        // new ClassE().Foo();
     }
 }

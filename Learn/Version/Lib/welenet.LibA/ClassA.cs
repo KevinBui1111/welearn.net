@@ -22,4 +22,10 @@ public class ClassA {
         Console.WriteLine("ClassA.ReferBxBar");
         new ClassB().ReferCxBar();
     }
+
+    // 1.4
+    public void ReferBxCxFoo() {
+        Console.WriteLine("ClassA.ReferBxCxFoo");
+        new ClassB().ReferCxFoo();
+    }
 }
