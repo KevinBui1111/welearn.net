@@ -38,6 +38,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welearn.net.play.interview"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Version", "Version", "{D2AD2F32-2438-420A-AC05-AACEDB908252}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kafka", "Kafka", "{57B7BDC9-6D70-42F4-9252-84D8990C8BF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welear.net.learn.kafka.consumer", "Learn\Kafka\welear.net.learn.kafka.consumer\welear.net.learn.kafka.consumer.csproj", "{DDCD172E-674D-47C9-9291-5D589C8AFE4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "welear.net.learn.kafka.producer", "Learn\Kafka\welear.net.learn.kafka.producer\welear.net.learn.kafka.producer.csproj", "{56D64936-927A-4E2E-80A9-2C11C47C884D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +65,9 @@ Global
 		{4C98C8F1-2C77-4FF9-8CFE-C41715A6776F} = {C4D4ED22-14EC-49ED-94B0-FA9E2647EA85}
 		{45FE2CBE-B838-4C94-B7D4-5401DAB0A7FF} = {C4D4ED22-14EC-49ED-94B0-FA9E2647EA85}
 		{D2AD2F32-2438-420A-AC05-AACEDB908252} = {0736F652-351B-4DD3-9C5B-D808EC2BAEE1}
+		{57B7BDC9-6D70-42F4-9252-84D8990C8BF7} = {0736F652-351B-4DD3-9C5B-D808EC2BAEE1}
+		{DDCD172E-674D-47C9-9291-5D589C8AFE4C} = {57B7BDC9-6D70-42F4-9252-84D8990C8BF7}
+		{56D64936-927A-4E2E-80A9-2C11C47C884D} = {57B7BDC9-6D70-42F4-9252-84D8990C8BF7}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{51F6E0FA-803A-44F7-9CD0-32F8B31A6897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -117,5 +126,13 @@ Global
 		{45FE2CBE-B838-4C94-B7D4-5401DAB0A7FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45FE2CBE-B838-4C94-B7D4-5401DAB0A7FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45FE2CBE-B838-4C94-B7D4-5401DAB0A7FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDCD172E-674D-47C9-9291-5D589C8AFE4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDCD172E-674D-47C9-9291-5D589C8AFE4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDCD172E-674D-47C9-9291-5D589C8AFE4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDCD172E-674D-47C9-9291-5D589C8AFE4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56D64936-927A-4E2E-80A9-2C11C47C884D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D64936-927A-4E2E-80A9-2C11C47C884D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D64936-927A-4E2E-80A9-2C11C47C884D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D64936-927A-4E2E-80A9-2C11C47C884D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
