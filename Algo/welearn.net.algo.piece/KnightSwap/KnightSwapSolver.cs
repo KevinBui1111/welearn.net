@@ -20,7 +20,7 @@ public class KnightSwapSolver {
     };
 
     public static int[] Solve() {
-        const string? start = "1...1.0.0.";
+        const string start = "1...1.0.0.";
         const string goal   = "0...0.1.1.";
         HashSet<string> visited = [start];
         Queue<Move> movesStack = new([new Move(start, "Start")]);
@@ -31,11 +31,8 @@ public class KnightSwapSolver {
 
             foreach (var from in position)
             foreach (var to in MapPath[from])
-                // check if a previous move
                 if (CanMove(currentState, from, to, out var newState)) {
                     var newPath = $"{path}-{from}{to}";
-                    if (newState == "10..1...0.")
-                        Console.WriteLine($"Debug! {newPath}");
                     if (newState == goal)
                         Console.WriteLine($"Found goal! {newPath}");
                     else if (visited.Add(newState))
@@ -48,10 +45,10 @@ public class KnightSwapSolver {
 
     private static bool CanMove(string state, int from, int to, out string newMove) {
         var valid = state[from - 1] != '.' && state[to - 1] == '.';
-        newMove = valid ? Move(state, from, to) : string.Empty;
+        newMove = valid ? Move() : string.Empty;
         return valid;
 
-        string Move(string state, int from, int to) {
+        string Move() {
             var newState = new StringBuilder(state);
             newState[to - 1] = newState[from - 1];
             newState[from - 1] = '.';
