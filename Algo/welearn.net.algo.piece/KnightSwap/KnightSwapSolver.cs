@@ -32,12 +32,13 @@ public class KnightSwapSolver {
                 // check if a previous move
                 if (CanMove(currentState, from, to, out var newState)) {
                     var newPath = $"{path}-{from}{to}";
+                    if (newState == "10..1...0.")
+                        Console.WriteLine($"Debug! {newPath}");
                     if (newState == goal)
                         Console.WriteLine($"Found goal! {newPath}");
-                    else if (!visited.Contains(newState))
+                    else if (visited.Add(newState))
                         movesStack.Push(new Move(newState, newPath));
                 }
-            visited.Add(currentState);
         }
 
         return [];
