@@ -57,3 +57,11 @@ public class Child : Parent {
         var me = this;
     }
 }
+
+public class ChildChild : Child {
+    public ChildChild(string className) : base(className) { }
+
+    protected override void MethodVirtualProtected() {
+        
+    }
+}

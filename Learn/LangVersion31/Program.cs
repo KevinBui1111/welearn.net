@@ -7,6 +7,10 @@ namespace LangVersion31 {
         private int _a = 0;
         
         static void Main(string[] args) {
+            int? i = null;
+            var abc = i.ToString();
+            
+            Console.WriteLine($"abc {abc}");
             Console.WriteLine("Hello World!");
             
             //nullable-reference-types

@@ -1,8 +1,6 @@
 using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using welearn.net.learn.DependencyInjection.LifeTime;
 
 namespace welearn.net.learn.DependencyInjection.Config;
 
