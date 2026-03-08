@@ -176,6 +176,7 @@ public static class Prime
     //      1:07, core Ultra 7 165U 1.7GHz - 4.9GHz (ThinkPad T16 Gen 3)
     //      1:07, core i5 - 1335U up to 4.6GHz (ThinkBook 15 Gen 5)
     //      1:04, core i7 - 12800H up to 2.4GHz (ThinkPad P15v Gen 3)
+    //      0:53, core Ultra 7 255H up to 5.1GHz (ThinkPad T16 Gen 4)
     public static long NthPrime(int n)
     {
         // find prime up to MAX
@@ -235,6 +236,7 @@ public static class Prime
     //      1:07, core i5 - 1335U up to 4.6GHz (ThinkBook 15 Gen 5)
     //      1:07, core Ultra 7 165U 1.7GHz - 4.9GHz (ThinkPad T16 Gen 3)
     //      1:04, core i7 - 12800H up to 2.4GHz (ThinkPad P15v Gen 3)
+    //      0:50, core Ultra 7 255H up to 5.1GHz (ThinkPad T16 Gen 4)
     public static (long count, long last) HowMany(long bound) {
         int MAX_PART = 1_000_000;
         // get max prime to sieve range to bound
@@ -271,6 +273,7 @@ public static class Prime
     //      12.4, AMD Ryzen™ 7 PRO 6850H 3.2GHz - 4.7GHz
     //      10.6, AMD Ryzen™ 7 PRO 7840HS 3.8GHz - 5.1GHz (ThinkPad P16v Gen 1)
     //    	10.1, core i7 - 12800H up to 2.4GHz (ThinkPad P15v Gen 3)
+    //      08.0, core Ultra 7 255H up to 5.1GHz (ThinkPad T16 Gen 4)
     public static (long count, long last) HowManyParallel(long bound) {
         int MAX_PART = 1_000_000;
         // get max prime to sieve range to bound
