@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Text;
 using welearn.net.play.Doodle;
 using welearn.net.play.Doodle.Support;
 
