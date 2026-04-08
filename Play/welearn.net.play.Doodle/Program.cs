@@ -7,9 +7,18 @@ using welearn.net.play.Doodle.Support;
 // WeekDate.ListAllWeek(2021);
 // WeekDate.ListAllWeek(2022);
 
-if (args[0] == "old-enc") {
-    var res = args[1] == "-d"
-        ? OldEncConn.DecryptString(args[2])
-        : OldEncConn.EncryptString(args[1]);
-    Console.WriteLine(res);
+switch (args[0]) {
+    case "old-enc": {
+        var res = args[1] == "-d"
+            ? OldEncConn.DecryptString(args[2])
+            : OldEncConn.EncryptString(args[1]);
+        Console.WriteLine(res);
+        break;
+    }
+    case "xmlTrans":
+        XmlTrans.Apply(
+            args[1],
+            args[2..]
+        );
+        break;
 }
