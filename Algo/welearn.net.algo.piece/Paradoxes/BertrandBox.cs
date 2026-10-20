@@ -1,4 +1,4 @@
-namespace welearn.net.algo.piece.gold;
+namespace welearn.net.algo.piece.Paradoxes;
 
 public static class BertrandBox {
     public static void ChoiceGold(int testCnt) {
@@ -21,4 +21,5 @@ public static class BertrandBox {
         Console.WriteLine($"Total left gold items: {totalLeftGold} / Total gold items chosen: {total}");
         Console.WriteLine($"Probability of left gold given chosen gold: {(double)totalLeftGold / total:P}");
     }
+
 }
