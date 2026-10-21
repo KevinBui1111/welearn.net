@@ -9,4 +9,5 @@ using welearn.net.algo.piece.Paradoxes;
 // new LangfordTest().Test();
 // HundredDoor.Travel(100);
 // BaseRateFallacy.ChoiceGold(100_000);
-BaseRateFallacy.BaseRateFallacySimulate(1_000_000);
+// BaseRateFallacy.BaseRateFallacySimulate(1_000_000);
+PairOfAces.PairOfAcesSimulate(10_000_000);
