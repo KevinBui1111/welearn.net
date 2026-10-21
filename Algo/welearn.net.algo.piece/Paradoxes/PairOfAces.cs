@@ -13,9 +13,9 @@ public class PairOfAces {
         (int total, int pair) atLeastBlack = (0, 0);
         (int total, int pair) haveSpade = (0, 0);
 
+        // var deck = Enumerable.Range(1, 52).ToList();
         for (var i = 0; i < tryCount; i++) {
             // Simulation logic goes here
-            var deck = Enumerable.Range(1, 52).ToList();
             // assume 4 aces:
             // - 1: Ace of Spades
             // - 2: Ace of Clubs
@@ -23,10 +23,15 @@ public class PairOfAces {
             // - 4: Ace of Hearts
 
             // shuffle the deck
-            deck = deck.OrderBy(_ => Random.Shared.Next()).ToList();
+            // deck = deck.OrderBy(_ => Random.Shared.Next()).ToList();
             // pick the first two cards
-            var firstCard = deck[0];
-            var secondCard = deck[1];
+            // var firstCard = deck[0];
+            // var secondCard = deck[1];
+            var firstCard = Random.Shared.Next(1, 53);
+            var secondCard = Random.Shared.Next(1, 52);
+            // shift the second card if it is greater than or equal to the first card to avoid duplicates
+            if (secondCard >= firstCard) ++secondCard;
+
             var pairOfAces = firstCard <= 4 && secondCard <= 4 ? 1 : 0;
 
             // check if at least one card is an ace
