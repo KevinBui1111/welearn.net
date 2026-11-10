@@ -23,6 +23,25 @@ public class BaseRateFallacy {
      *        = 0.01 x 0.99 / 0.0594
      *        = 0.0099 / 0.0594
      *        ≈ 0.1667
+
+        Toàn bộ dân số (100%)
+        |
+        +-- Mắc bệnh S (1%)
+        |   |
+        |   +-- Dương tính P (99%)
+        |   |   => 1% × 99% = 0.99%
+        |   |
+        |   +-- Âm tính ¬P (1%)
+        |       => 1% × 1% = 0.01%
+        |
+        +-- Không mắc bệnh ¬S (99%)
+            |
+            +-- Dương tính P (5%)
+            |   => 99% × 5% = 4.95%
+            |
+            +-- Âm tính ¬P (95%)
+                => 99% × 95% = 94.05%
+
      */
     public static void BaseRateFallacySimulate(int tryCount) {
         const int pSickInCivil = 1; // 1%
